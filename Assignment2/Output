@@ -1,0 +1,163 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+22.04.01 JOB00877 ---- MONDAY,    18 SEP 2017 ----
+22.04.01 JOB00877  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+22.04.01 JOB00877  ICH70001I KC03I2C  LAST ACCESS AT 22:04:00 ON MONDAY, SEPTEMBER 18, 2017
+22.04.01 JOB00877  $HASP373 KC03I2CA STARTED - INIT 2    - CLASS A        - SYS S0W1
+22.04.01 JOB00877  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+22.04.01 JOB00877  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+22.04.01 JOB00877  -KC03I2CA                      00     44 ******    .00     .0    127   0      0      0      0     0
+22.04.01 JOB00877  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+22.04.01 JOB00877  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  18 SEP 2017 JOB EXECUTION DATE
+
+
+           81 CARDS READ
+
+
+          133 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+           10 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB00877
+       2 //STEP1    EXEC  PGM=ASSIST                                                     
+       3 //STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                            
+       4 //SYSPRINT   DD  SYSOUT=*                                                       
+       5 //SYSIN      DD  *                                                              
+       6 //FT05F001   DD  *                                                              
+       7 //FT06F001   DD SYSOUT=*                                                        
+       8 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 22:04:00 ON MONDAY, SEPTEMBER 18, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF237I JES2 ALLOCATED TO FT05F001
+IEF237I JES2 ALLOCATED TO FT06F001
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB00877.D0000103.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB00877.D0000101.?         SYSIN         
+IEF285I   KC03I2C.KC03I2CA.JOB00877.D0000102.?         SYSIN         
+IEF285I   KC03I2C.KC03I2CA.JOB00877.D0000104.?         SYSOUT        
+IEF373I STEP/STEP1   /START 2017261.2204
+IEF032I STEP/STEP1   /STOP  2017261.2204 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   264K  EXT:        0K  SYS:    11620K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017261.2204
+IEF033I  JOB/KC03I2CA/STOP  2017261.2204 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ************************************************************                                
+                                      2 *                                                                                           
+                                      3 *  Program:     ASSIGN2                                                                     
+                                      4 *  Programmer:  Alex Boyle                                                                  
+                                      5 *                                                                                           
+                                      6 *  Register usage:                                                                          
+                                      7 *    1        Used by XDECI                                                                 
+                                      8 *    2        X component                                                                   
+                                      9 *    3        Y component                                                                   
+                                     10 *    4        Z component                                                                   
+                                     11 *    5        calculation                                                                   
+                                     12 *    6        Number of lines                                                               
+                                     13 *    7        Total sum                                                                     
+                                     14 *   15        Base register                                                                 
+                                     15 ************************************************************                                
+000000                               16 MAIN     CSECT                                                                              
+000000                               17          USING MAIN,15                                                                      
+000000 1B66                          18          SR    6,6            Set register 6 to 0                                           
+000002 1B77                          19          SR    7,7            Set register 7 to 0                                           
+000004 E000 F0F0 0050 000F0          20 LOOP     XREAD BUFFER,80      Start loop and read in the first 80                           
+00000A 4740 F040            00040    21          BC    B'0100',ENDLOOP  check if read failed                                        
+00000E 5A60 F050            00050    22          A    6,=F'1'        Add one to line counter                                        
+000012 5320 F0F0            000F0    23          XDECI 2,BUFFER      Store the first number in 2                                    
+000016 5331 0000            00000    24          XDECI 3,0(1)        Store the second number in 3                                   
+00001A 5341 0000            00000    25          XDECI 4,0(1)        Store the third number in 4                                    
+00001E 1853                          26          LR    5,3           Load register 3 into 5                                         
+000020 1A54                          27          AR    5,4           Add register 4 to 5                                            
+000022 1B52                          28          SR    5,2           Subtract register 2 from 5                                     
+000024 1A75                          29          AR    7,5           Add register 5 to 7                                            
+000026 5220 F058            00058    30          XDECO 2,XCOM        Format register 2 and store in XCOM                            
+00002A 5230 F06F            0006F    31          XDECO 3,YCOM        Format register 3 and store in YCOM                            
+00002E 5240 F086            00086    32          XDECO 4,ZCOM        Format register 4 and store in ZCOM                            
+000032 5250 F0A2            000A2    33          XDECO 5,RCOM        Format register 5 and store in RCOM                            
+000036 E020 F054 005A 00054          34          XPRNT LINE,90       Print formated string at LINE                                  
+00003C 47F0 F004            00004    35          BC    B'1111',LOOP  Goto top of loop                                               
+000040 5260 F0C0            000C0    36 ENDLOOP  XDECO 6,NLINE       Format register 6 and store in NLINE                           
+000044 5270 F0E4            000E4    37          XDECO 7,SUM         Format register 7 and store in SUM                             
+000048 E020 F0AE 0042 000AE          38          XPRNT STAT,66       Print the formated string at STAT                              
+00004E 07FE                          39          BR    14            End of code                                                    
+                                     40          LTORG               Literals are put here                                          
+000050 00000001                      41                =F'1'                                                                        
+000054 40                            42 LINE     DC    C' '          Start of formated string LINE                                  
+000055 E7407E                        43          DC    CL3'X ='                                                                     
+000058                               44 XCOM     DS    CL12          Variable XCOM                                                  
+000064 4040404040404040              45          DC    CL8' '                                                                       
+00006C E8407E                        46          DC    CL3'Y ='                                                                     
+00006F                               47 YCOM     DS    CL12          Variable YCOM                                                  
+00007B 4040404040404040              48          DC    CL8' '                                                                       
+000083 E9407E                        49          DC    CL3'Z ='                                                                     
+000086                               50 ZCOM     DS    CL12          Variable ZCOM                                                  
+000092 4040404040404040              51          DC    CL8' '                                                                       
+00009A D985A2A493A3407E              52          DC    CL8'Result ='                                                                
+
+                                                                                                               PAGE    2            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+0000A2                               53 RCOM     DS    CL12          Variable RCOM                                                  
+0000AE 40                            54 STAT     DC    C' '          Start of formated string STAT                                  
+0000AF D5A4948285994096              55          DC    CL17'Number of Lines ='                                                      
+0000C0                               56 NLINE    DS    CL12          Variable NLINE                                                 
+0000CC 4040404040404040              57          DC    CL8' '                                                                       
+0000D4 E2A49440968640D9              58          DC    CL16'Sum of Results ='                                                       
+0000E4                               59 SUM      DS    CL12          Variable SUM                                                   
+0000F0                               60 BUFFER   DS    0C            Variable BUFFER                                                
+                                     61          END   MAIN          End of program                                                 
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:    2816 HIGH:     552 LEAVING:  490200 FREE BYTES. AVERAGE:       54 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,    62000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+X =        8163        Y =        2529        Z =        2805        Result =       -2829                                           
+X =        4536        Y =        1839        Z =        5741        Result =        3044                                           
+X =         591        Y =        7843        Z =        9487        Result =       16739                                           
+X =        4190        Y =        3057        Z =        2775        Result =        1642                                           
+X =        2399        Y =         667        Z =        4129        Result =        2397                                           
+X =        8118        Y =        3961        Z =        6535        Result =        2378                                           
+X =        4765        Y =         498        Z =        1111        Result =       -3156                                           
+X =        9056        Y =        2345        Z =        1110        Result =       -5601                                           
+X =           1        Y =           2        Z =           3        Result =           4                                           
+X =        9999        Y =        9998        Z =        9997        Result =        9996                                           
+X =        8001        Y =        7999        Z =        3512        Result =        3510                                           
+Number of Lines =          11        Sum of Results =       28124                                                                   
+
+*** EXECUTION TIME =    0.000 SECS.       184 INSTRUCTIONS EXECUTED -   184000 INSTRUCTIONS/SEC ***                                 
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!

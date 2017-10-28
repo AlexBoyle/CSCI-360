@@ -1,0 +1,287 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+20.40.26 JOB07162 ---- WEDNESDAY, 27 SEP 2017 ----
+20.40.26 JOB07162  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+20.40.26 JOB07162  ICH70001I KC03I2C  LAST ACCESS AT 20:40:25 ON WEDNESDAY, SEPTEMBER 27, 2017
+20.40.26 JOB07162  $HASP373 KC03I2CA STARTED - INIT 2    - CLASS A        - SYS S0W1
+20.40.26 JOB07162  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+20.40.26 JOB07162  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+20.40.26 JOB07162  -KC03I2CA                      00     64 ******    .00     .0    156   0      0      0      0     0
+20.40.26 JOB07162  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+20.40.26 JOB07162  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  27 SEP 2017 JOB EXECUTION DATE
+
+
+          155 CARDS READ
+
+
+          233 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+           18 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB07162
+       2 //STEP1    EXEC  PGM=ASSIST                                                     
+       3 //STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                            
+       4 //SYSPRINT   DD  SYSOUT=*                                                       
+       5 //SYSIN      DD  *                                                              
+       6 //FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW3DATA,DISP=SHR                     
+       7 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 20:40:25 ON WEDNESDAY, SEPTEMBER 27, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME FT05F001
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB07162.D0000102.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB07162.D0000101.?         SYSIN         
+IGD104I KC02314.AUTUMN17.CSCI360.HW3DATA             RETAINED,  DDNAME=FT05F001
+IEF373I STEP/STEP1   /START 2017270.2040
+IEF032I STEP/STEP1   /STOP  2017270.2040 
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11384K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017270.2040
+IEF033I  JOB/KC03I2CA/STOP  2017270.2040 
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ************************************************************                                
+                                      2 *                                                                                           
+                                      3 *  Program:     ASSIGN3                                                                     
+                                      4 *  Programmer:  Alex Boyle                                                                  
+                                      5 *                                                                                           
+                                      6 *  Register usage:                                                                          
+                                      7 *    1        Used by XDECI                                                                 
+                                      8 *    4        ElementOne                                                                    
+                                      9 *    5        ElementOne                                                                    
+                                     10 *    6        ElementTwo                                                                    
+                                     11 *    7        Total types                                                                   
+                                     12 *    8        Type                                                                          
+                                     13 *    9        Total calculations                                                            
+                                     14 *   10        total adds                                                                    
+                                     15 *   11        Total subtracts                                                               
+                                     16 *   12        Total Multiplys                                                               
+                                     17 *   13        Total Divides                                                                 
+                                     18 *   15        Base register                                                                 
+                                     19 ************************************************************                                
+000000                               20 MAIN     CSECT                                                                              
+000000                               21          USING MAIN,15                                                                      
+
+       Arithmetic                                                                                              PAGE    2            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                                                                                                                    
+                                                                                                                                    
+                                                                                                                                    
+000000 1B99                          25          SR    9,9            Set register 9 to 0                                           
+000002 1BAA                          26          SR    10,10          Set register 10 to 0                                          
+000004 1BBB                          27          SR    11,11          Set register 11 to 0                                          
+000006 1BCC                          28          SR    12,12          Set register 12 to 0                                          
+000008 1BDD                          29          SR    13,13          Set register 13 to 0                                          
+00000A E020 F2DB 0044 002DB          30          XPRNT TOP,68         Print table name                                              
+000010 E020 F31F 0038 0031F          31          XPRNT HEAD,56        Print column headdings                                        
+000016 E020 F357 0079 00357          32          XPRNT DASH,121       Print dashed line                                             
+00001C E000 F3D0 0050 003D0          33 LOOP     XREAD BUFFER,80      Start loop and read in the first 80                           
+000022 4740 F0DA            000DA    34          BC    B'0100',ENDLOOP  check if read failed                                        
+000026 5A60 F100            00100    35          A    6,=F'1'         Add one to counter                                            
+00002A 5380 F3D0            003D0    36          XDECI 8,BUFFER       Store the first number in 8                                   
+00002E 5351 0000            00000    37          XDECI 5,0(1)         Store the second number in 4                                  
+000032 5361 0000            00000    38          XDECI 6,0(1)         Store the third number in 6                                   
+000036 5A90 F100            00100    39          A     9,=F'1'                                                                      
+00003A 5980 F100            00100    40          C     8,=F'1'        Is the operator 1                                             
+00003E 4780 F05E            0005E    41          BC    B'1000',ADD    Goto add if equ                                               
+000042 5980 F104            00104    42          C     8,=F'2'        Is the operator 2                                             
+000046 4780 F07A            0007A    43          BC    B'1000',SUB    Goto sub if equ                                               
+00004A 5980 F108            00108    44          C     8,=F'3'        Is the operator 3                                             
+00004E 4780 F096            00096    45          BC    B'1000',MUL    Goto mul if equ                                               
+000052 5980 F10C            0010C    46          C     8,=F'4'        Is the operator 4                                             
+000056 4780 F0B6            000B6    47          BC    B'1000',DIV    Goto div if equ                                               
+00005A 47F0 F0DA            000DA    48          BC    B'1111',ENDLOOP                                                              
+00005E 5250 F120            00120    49 ADD      XDECO 5,ADDA         Store num1 in column 1                                        
+000062 5260 F12C            0012C    50          XDECO 6,ADDB         Store num2 in column 2                                        
+000066 1A56                          51          AR    5,6            Add R5 and R6                                                 
+000068 5250 F14B            0014B    52          XDECO 5,ADDC         Store the ans in column 3                                     
+00006C E020 F110 0047 00110          53          XPRNT ADDS,71        Print the stored result                                       
+000072 5AA0 F100            00100    54          A     10,=F'1'       Add one to the add counter                                    
+000076 47F0 F01C            0001C    55          BC    B'1111',LOOP   Goto top of loop                                              
+00007A 5250 F167            00167    56 SUB      XDECO 5,SUBA         Store num1 in column 1                                        
+00007E 5260 F173            00173    57          XDECO 6,SUBB         Store num2 in column 2                                        
+000082 1B56                          58          SR    5,6            Subtract R5 and R6                                            
+000084 5250 F192            00192    59          XDECO 5,SUBC         Store the result in column 3                                  
+000088 E020 F157 0047 00157          60          XPRNT SUBS,71        Print the stored result                                       
+00008E 5AB0 F100            00100    61          A     11,=F'1'       Add one to adding counter                                     
+000092 47F0 F01C            0001C    62          BC    B'1111',LOOP   Goto top of loop                                              
+000096 5250 F1AE            001AE    63 MUL      XDECO 5,MULA         store num1 in column 1                                        
+00009A 5260 F1BA            001BA    64          XDECO 6,MULB         store num2 in column 2                                        
+00009E 1C46                          65          MR    4,6            Multiply R5 and R6                                            
+0000A0 5D40 F100            00100    66          D     4,=F'1'        Divide R4 and R5 to get result                                
+0000A4 5250 F1D9            001D9    67          XDECO 5,MULC         Store Result in column 3                                      
+0000A8 E020 F19E 0047 0019E          68          XPRNT MULS,71        Printthe stored result                                        
+0000AE 5AC0 F100            00100    69          A     12,=F'1'       Add one to mul counter                                        
+0000B2 47F0 F01C            0001C    70          BC    B'1111',LOOP   Goto top of loop                                              
+0000B6 5250 F1F5            001F5    71 DIV      XDECO 5,DIVA         Store num1 in column 1                                        
+0000BA 5260 F201            00201    72          XDECO 6,DIVB         Store num2 in column 2                                        
+0000BE 5C40 F100            00100    73          M     4,=F'1'        Make R4 and R5 a 64 bit number                                
+0000C2 1D46                          74          DR    4,6            Divide R4,R5 by R6                                            
+0000C4 5250 F220            00220    75          XDECO 5,DIVC         Store result in column 3                                      
+0000C8 5240 F23E            0023E    76          XDECO 4,DIVD         Store remainder in column 4                                   
+0000CC E020 F1E5 0065 001E5          77          XPRNT DIVS,101       Print the stored result                                       
+0000D2 5AD0 F100            00100    78          A     13,=F'1'       Add one to sub counter                                        
+
+       Arithmetic                                                                                              PAGE    3            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+0000D6 47F0 F01C            0001C    79          BC    B'1111',LOOP   Goto top of loop                                              
+0000DA 5290 F25E            0025E    80 ENDLOOP  XDECO 9,TOT          Store total calculations                                      
+0000DE E020 F24A 0020 0024A          81          XPRNT SUM,32         Print calculations                                            
+0000E4 52A0 F27E            0027E    82          XDECO 10,TOTA        Store total Adds                                              
+0000E8 52B0 F299            00299    83          XDECO 11,TOTB        Store total Subs                                              
+0000EC 52C0 F2B7            002B7    84          XDECO 12,TOTC        Store total Muls                                              
+0000F0 52D0 F2CF            002CF    85          XDECO 13,TOTD        Store total Divs                                              
+0000F4 E020 F26A 0071 0026A          86          XPRNT TOTS,113       Print totals                                                  
+0000FA 07FE                          87          BR    14             End of code                                                   
+                                     88          LTORG                Literals are put here                                         
+000100 00000001                      89                =F'1'                                                                        
+000104 00000002                      90                =F'2'                                                                        
+000108 00000003                      91                =F'3'                                                                        
+00010C 00000004                      92                =F'4'                                                                        
+000110 F0C1848489A38996              93 ADDS     DC    CL16'0Addition:      '                                                       
+000120                               94 ADDA     DS    CL12                                                                         
+00012C                               95 ADDB     DS    CL12                                                                         
+000138 4040404040404040              96          DC    CL8' '                                                                       
+000140 E2A4947A40404040              97          DC    CL11'Sum:       '                                                            
+00014B                               98 ADDC     DS    CL12                                                                         
+000157 F0E2A482A3998183              99 SUBS     DC    CL16'0Subtraction:   '                                                       
+000167                              100 SUBA     DS    CL12                                                                         
+000173                              101 SUBB     DS    CL12                                                                         
+00017F 4040404040404040             102          DC    CL8' '                                                                       
+000187 C489868685998595             103          DC    CL11'Difference:'                                                            
+000192                              104 SUBC     DS    CL12                                                                         
+00019E F0D4A493A3899793             105 MULS     DC    CL16'0Multiplication:'                                                       
+0001AE                              106 MULA     DS    CL12                                                                         
+0001BA                              107 MULB     DS    CL12                                                                         
+0001C6 4040404040404040             108          DC    CL8' '                                                                       
+0001CE D7999684A483A340             109          DC    CL11'Product    '                                                            
+0001D9                              110 MULC     DS    CL12                                                                         
+0001E5 F0C489A589A28996             111 DIVS     DC    CL16'0Division:      '                                                       
+0001F5                              112 DIVA     DS    CL12                                                                         
+000201                              113 DIVB     DS    CL12                                                                         
+00020D 4040404040404040             114          DC    CL8' '                                                                       
+000215 D8A496A3898595A3             115          DC    CL11'Quotient:  '                                                            
+000220                              116 DIVC     DS    CL12                                                                         
+00022C 4040404040404040             117          DC    CL8' '                                                                       
+000234 D985948189958485             118          DC    CL10'Remainder:'                                                             
+00023E                              119 DIVD     DS    CL12                                                                         
+00024A 60E396A3819340C3             120 SUM      DC    CL20'-Total Calculations:'                                                   
+00025E                              121 TOT      DS    CL12                                                                         
+00026A 404040404040                 122 TOTS     DC    CL6' '                                                                       
+000270 C1848489A3899695             123          DC    CL14'Addition:     '                                                         
+00027E                              124 TOTA     DS    CL12                                                                         
+00028A 404040                       125          DC    CL3' '                                                                       
+00028D E2A482A3998183A3             126          DC    CL12'Subtraction:'                                                           
+000299                              127 TOTB     DS    CL12                                                                         
+0002A5 404040                       128          DC    CL3' '                                                                       
+0002A8 D4A493A389979389             129          DC    CL15'Multiplication:'                                                        
+0002B7                              130 TOTC     DS    CL12                                                                         
+0002C3 404040                       131          DC    CL3' '                                                                       
+0002C6 C489A589A2899695             132          DC    CL9'Division:'                                                               
+0002CF                              133 TOTD     DS    CL12                                                                         
+0002DB F140404040404040             134 TOP      DC    CL48'1'                                                                      
+00030B D985A2A493A34096             135          DC    CL20'Result of Arithmetic'                                                   
+
+       Arithmetic                                                                                              PAGE    4            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+00031F F0D697859981A389             136 HEAD     DC    CL10'0Operation'                                                             
+000329 4040404040404040             137          DC    CL13' '                                                                      
+000336 D5A49440F1                   138          DC    CL5'Num 1'                                                                   
+00033B 40404040404040               139          DC    CL7' '                                                                       
+000342 D5A49440F3                   140          DC    CL5'Num 3'                                                                   
+000347 4040404040404040             141          DC    CL8' '                                                                       
+00034F D985A2A493A34040             142          DC    CL8'Result'                                                                  
+000357 40                           143 DASH     DC    CL1' '                                                                       
+000358 6060606060606060             144          DC    CL20'--------------------'                                                   
+00036C 6060606060606060             145          DC    CL20'--------------------'                                                   
+000380 6060606060606060             146          DC    CL20'--------------------'                                                   
+000394 6060606060606060             147          DC    CL20'--------------------'                                                   
+0003A8 6060606060606060             148          DC    CL20'--------------------'                                                   
+0003BC 6060606060606060             149          DC    CL20'--------------------'                                                   
+0003D0                              150 BUFFER   DS    0C                                                                           
+                                    151          END   MAIN                                                                         
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:    7164 HIGH:     976 LEAVING:  485428 FREE BYTES. AVERAGE:       53 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,   152000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+                                               Result of Arithmetic                                                                 
+
+Operation             Num 1       Num 3        Result                                                                               
+------------------------------------------------------------------------------------------------------------------------            
+
+Addition:               987          45        Sum:               1032                                                              
+
+Multiplication:       12345           3        Product           37035                                                              
+
+Multiplication:          -9         999        Product           -8991                                                              
+
+Division:              5890           4        Quotient:          1472        Remainder:           2                                
+
+Subtraction:             38        9308        Difference:       -9270                                                              
+
+Addition:              2468       -9753        Sum:              -7285                                                              
+
+Multiplication:          11          30        Product             330                                                              
+
+Division:              1977          24        Quotient:            82        Remainder:           9                                
+
+Addition:              -450        -762        Sum:              -1212                                                              
+
+Division:                 0          15        Quotient:             0        Remainder:           0                                
+
+Division:               -25           3        Quotient:            -8        Remainder:          -1                                
+
+Division:                25          -3        Quotient:            -8        Remainder:           1                                
+
+Subtraction:           -465        -360        Difference:        -105                                                              
+
+Division:               465         360        Quotient:             1        Remainder:         105                                
+
+Multiplication:        7783        8729        Product        67937807                                                              
+
+Addition:             10203       40506        Sum:              50709                                                              
+
+
+Total Calculations:          16                                                                                                     
+     Addition:                4   Subtraction:           2   Multiplication:           4   Division:           6                    
+
+*** EXECUTION TIME =    0.001 SECS.       346 INSTRUCTIONS EXECUTED -   346000 INSTRUCTIONS/SEC ***                                 
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!

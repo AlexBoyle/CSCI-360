@@ -1,0 +1,128 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+11.29.32 JOB04498 ---- THURSDAY,  14 SEP 2017 ----
+11.29.32 JOB04498  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+11.29.32 JOB04498  ICH70001I KC03I2C  LAST ACCESS AT 11:29:31 ON THURSDAY, SEPTEMBER 14, 2017
+11.29.32 JOB04498  $HASP373 KC03I2CA STARTED - INIT 1    - CLASS A        - SYS S0W1
+11.29.32 JOB04498  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+11.29.32 JOB04498  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+11.29.32 JOB04498  -KC03I2CA                      00     36 ******    .00     .0    110   0      0      0      0     0
+11.29.32 JOB04498  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+11.29.32 JOB04498  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  14 SEP 2017 JOB EXECUTION DATE
+
+
+           39 CARDS READ
+
+
+           93 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+            6 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB04498
+       2 //STEP1 EXEC PGM=ASSIST                                                         
+       3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                                
+       4 //SYSPRINT DD SYSOUT=*                                                          
+       5 //SYSIN DD *                                                                    
+       6 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 11:29:31 ON THURSDAY, SEPTEMBER 14, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB04498.D0000102.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB04498.D0000101.?         SYSIN         
+IEF373I STEP/STEP1   /START 2017257.1129
+IEF032I STEP/STEP1   /STOP  2017257.1129 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11396K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017257.1129
+IEF033I  JOB/KC03I2CA/STOP  2017257.1129 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ********************************************                                                
+                                      2 * EXAMPLE PROGRAM                                                                           
+                                      3 *                                                                                           
+                                      4 * NAME:  Alex Boyle                                                                         
+                                      5 *                                                                                           
+                                      6 * Register Usage                                                                            
+                                      7 *                                                                                           
+                                      8 * 15                                                                                        
+                                      9 *  1     NUM1 Add                                                                           
+                                     10 *  2     NUM2 Add                                                                           
+                                     11 *  3     NUM1 Sub                                                                           
+                                     12 *  4     NUM2 Sub                                                                           
+                                     13 *                                                                                           
+                                     14 ********************************************                                                
+000000                               15 MAIN     CSECT                                                                              
+000000                               16          USING MAIN,15                                                                      
+000000 5810 F02C            0002C    17          L     1,44(,15)     Load NUM1 into R1                                              
+000004 5820 F030            00030    18          L     2,48(,15)     Load NUM2 into R2                                              
+000008 1B21                          19          SR    2,1          Subtract R2 from R1, store in R2                                
+00000A 5020 F034            00034    20          ST    2,52(,15)     Store R2 in DIFF                                               
+00000E 5830 F02C            0002C    21          L     3,44(,15)     Load NUM1 into R3                                              
+000012 5840 F030            00030    22          L     4,48(,15)     Load NUM2 into R4                                              
+000016 1A43                          23          AR    4,3          Add R4 and R3, store in R4                                      
+000018 5040 F038            00038    24          ST    4,56(,15)     Store R4 in SUM                                                
+00001C E060 F034 0008 00034          25          XDUMP 52(,15),8     Dump DIFF                                                      
+000022 E060 F038 0008 00038          26          XDUMP 56(,15),8     Dump SUM                                                       
+000028 07FE                          27          BR    14           End program                                                     
+00002C                               28 NUM1     DS    F'249'       NUM1 = 249                                                      
+000030                               29 NUM2     DS    F'117'       NUM2 = 117                                                      
+000034                               30 DIFF     DS    F            DIFF = null                                                     
+000038                               31 SUM      DS    F            SUM = null                                                      
+                                     32          END   MAIN                                                                         
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:     976 HIGH:     384 LEAVING:  492208 FREE BYTES. AVERAGE:       41 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,    33000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+BEGIN XSNAP - CALL     1 AT D0000022 USER STORAGE                                                                                   
+
+                             CORE ADDRESSES SPECIFIED-     000034 TO 00003C                                                         
+000020   0008E060 F0380008 07FEF5F5 F5F5F5F5    F5F5F5F5 00000000 EBEBEBEA F5F5F5F5   *....0.....5555555555........5555*            
+
+                                                                                                                                    
+
+BEGIN XSNAP - CALL     2 AT D0000028 USER STORAGE                                                                                   
+
+                             CORE ADDRESSES SPECIFIED-     000038 TO 000040                                                         
+000020   0008E060 F0380008 07FEF5F5 F5F5F5F5    F5F5F5F5 00000000 EBEBEBEA F5F5F5F5   *....0.....5555555555........5555*            
+
+                                                                                                                                    
+
+*** EXECUTION TIME =    0.000 SECS.        11 INSTRUCTIONS EXECUTED -    11000 INSTRUCTIONS/SEC ***                                 
+
+*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                                
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!
