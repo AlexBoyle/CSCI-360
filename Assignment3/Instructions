@@ -1,0 +1,86 @@
+CSCI 360
+
+Assignment 3
+
+100 points
+
+
+Overview
+
+For this assignment, write a program that will perform mathematical calculations on two numbers.
+
+The program should have a read loop that will process the input one record at a time.
+
+For each input record, print a detail line containing the calculation type, the input values, and the result of the calculation. NOTE: for a divide calculation, there will be two results: the quotient and the remainder.
+
+After all of the calculations have been performed, display a summary listing of the total number of calculations, as well as the total number of each individual calculation type.
+
+Input
+
+The input to the program will be a file with an unknown number of records. Each record represents a single calculation and has the following format:
+
+columns         description
+-------         -----------
+ 1              Calculation Type Code
+ 2 - 4          spaces
+ 5 - 9          First Number
+10 - 12         spaces
+13 - 17         Second Number
+18 - 80         spaces
+The calculation type code is a numeric value that corresponds as follows:
+
+Code     Calculation Type
+----     ----------------
+ 1       Addition
+ 2       Subtraction
+ 3       Multiplication
+ 4       Division
+For all of the calculation types, the operation should be applied in the order: First Number operator Second Number.
+
+Processing Requirements
+
+Use M, D, MR, DR, LA, XREAD, XDECI, XDECO, XPRNT, L, ST, C, A, S, AR, SR, BC, and BCR, as appropriate.
+Use at least one literal in the program.
+Use line documentation, documentation boxes, TITLE, EJECT, and SPACE as before.
+Write this program incrementally. It will be much easier to debug. Initially write the program so that it reads and processes one record. Once you know it does that correctly, implement the loop.
+The page header for the report should start at the top of a new page. The column headers should be double spaced from the page header. The calculation information should be double spaced. The summary lines should be triple spaced from the last calculation record.
+Hand in a copy of your source code and a listing of the Marist output on Blackboard.
+Notes
+
+Use the following JCL statement to specify the input file:
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW3DATA,DISP=SHR
+
+The JCL for the program should now look like:
+//your_KC_id_plus_a_letter JOB ,'your name',MSGCLASS=H
+//STEP1 EXEC PGM=ASSIST
+//STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR
+//SYSPRINT DD SYSOUT=*
+//SYSIN DD *
+********************************************
+*
+*  The program goes here
+*
+********************************************
+/*
+//FT05F001 DD DSN=KC02314.AUTUMN17.CSCI360.HW3DATA,DISP=SHR
+//
+When you are debugging logic errors, don't be reluctant to use XDUMP instructions to display registers and/or memory. Once you get the program running, remove the XDUMPs from the run that is turned in for grading.
+Feel free to test the program with your own data. Simply replace the the FT05F001 statement in the JCL that was given above with this line:
+//FT05F001 DD  *
+and list your own data next, followed by:
+/*
+For example:
+
+         END   MAIN
+/*
+//FT05F001 DD  *
+1   987     45
+3   12345   3
+3   9       999
+4   5890    4
+2   38      9308
+/*
+//
+This is known as in-stream data.
+
+Make sure that the run you hand in for grading uses the file specified above.

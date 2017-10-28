@@ -1,0 +1,65 @@
+CSCI 360
+
+Assignment 4
+
+100 points
+
+
+Overview
+
+In this assignment, you will write a program that will read integers from a file of 80-byte records, with zero or more numbers per record, and store the integers in a table.
+
+Read the file and process the integers on each line. Put each one in the table. Store the address of the first unused fullword.
+
+To verify the loading of the table, print out the entire table with 6 numbers per line. (The last line may not have as many as 6.)
+
+After that, print a list of all of the odd integers with 5 numbers per line. An integer M is odd if the remainder of dividing M by 2 is 1 or -1. (The last line may not have as many as 5.)
+
+Use internal subroutines to structure this program. (See the instructions listed below.)
+
+Input
+
+The input to the program will be a file with an unknown number of records. Each record contains zero or more integers, separated by spaces.
+
+Use the following JCL statement to specify the input file:
+
+     //FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HW4DATA,DISP=SHR
+Internal Subroutines
+
+You will need several internal subroutines:
+
+BUILD is a subroutine that will read the input file and build the table. It will store the address of the last entry in a fullword passed in as a parameter.
+PRINT is a subroutine that will print the entire table (up to the last entry).
+PRINTO is a subroutine that will print only the odd values in the table.
+Bear in mind that there are several requirements for using an internal subroutine:
+
+You need a label with the name of the subroutine, as in:
+     BUILD    DS    0H
+You need to create a parameter list for the subroutine (a set of consecutive fullwords, each containing the address of a parameter).
+What parameters should each subroutine have? Each of these three subroutines needs to receive at least two items: the address of the table itself, and the address of a fullword in which we have the address of the last entry in use. Think about whether any other parameters are needed.
+
+You need to call the subroutine, as in:
+     LA      1,BPARMS    Parmlist for BUILD
+     BAL     10,BUILD    Branch to BUILD
+Here the BAL instruction will set register 10 = the address of the next instruction after the BAL.
+
+You need to return from the subroutine, as in:
+     BR      10
+You will need to use some registers in each subroutine. When you exit from the subroutine, these registers should have the same values as they had before the subroutine was called. To accomplish this, set up a save area (a set of consecutive fullwords) and save the register values using STM, and later, just before the subroutine ends, restore the original values using LM.
+Processing Requirements
+
+The JCL for this assignment is the same as the JCL used in Assignment 3 except for the line given above to provide the data.
+Define the table to hold 49 values. Each entry is one fullword. Initialize the table to the value -16.
+The input file may contain more than 49 numbers, and we do not want to try to store more than the table will hold. As you put numbers into the table, count them. If you reach 49, stop, even if there are more numbers in the file.
+You will need two loops. The outer loop reads the records using XREAD and stops when it detects the end of the file. The inner loop processes one record, using XDECI to obtain each integer in turn. Be sure to stop at the end of the record. Each of these should be a top-driven loop.
+You will need to blank out your print lines. You can do this with a standard trick called destructive overlap. For a line of length 73, you can do the following:
+         MVI   PLINE,C' '
+         MVC   PLINE+1(72),PLINE
+Use structured logic; i.e., no BCT, BXLE or BXH instructions may be used.
+Use a non-numeric marker at the end of the input storage area to stop the XDECI scan, like this:
+INPUTREC DS    CL80
+         DC    C'*'
+In this assignment, you may use register equates if you like. (These were described in Assignment 2.)
+If you like, you may use extended mnemonics such as BH, BL, BNE, etc. for branch instructions.
+In this assignment, avoid using labeled constants in storage; use instead LA instructions or literals.
+Use print lines of at least 73 bytes each (plus the carriage-control character). Double-space between lines of numbers. Each list of numbers should start on a new page and have a heading, centered, stating "List of numbers" or "List of odd numbers". Leave two lines blank after the heading.

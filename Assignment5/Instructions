@@ -1,0 +1,70 @@
+Assignment 5
+
+100 points
+
+
+Overview
+
+In this assignment, you will rewrite the program you wrote in Assignment 4 using external subroutines instead of internal subroutines. There are a few minor changes. The biggest is that we will add a subroutine to search the table.
+
+Input
+
+The input to the program will be a file with an unknown number of records.
+
+The data starts with a number of lines very much like those in the data for Assignment 4, followed by a line containing the integer -77777777. This number serves as a delimiter and is not part of the data. After that are several lines each containing one integer.
+
+Use the following JCL statement to specify the input file:
+
+     //FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HW5DATA,DISP=SHR
+What needs to be done
+
+Call the BUILD subroutine to read lines in the file until it find the delimiter line. Each line contains zero or more integers. Put the integers in the table. Do not put the delimiter value -77777777 in the table.
+Call the PRINT subroutine to print the contents of the table with 7 numbers per line.
+In the main program, print a line (triple-spaced) saying something like "Results of Searching the table".
+Now read the last few lines in the file until you find the end. Each contains one integer. Store it in a fullword called TARGET. Call subroutine SEARCH to look for TARGET's value in the table. SEARCH will report whether it has found TARGET. In the main routine, either print a line stating the value of TARGET and the fact that you found it or print a line stating the value of TARGET and the fact that it was not found.
+External Subroutines
+
+You will need several external subroutines:
+
+BUILD is a subroutine that will read the input file and build the table. It will store the address of the last entry in a fullword passed in as its second parameter.
+The arguments for BUILD are:
+
+the address of the input buffer
+the address of the table
+the address of a fullword containing the address of the first available entry
+PRINT is a subroutine that will print the entire table, starting on a new page and double-spaced.
+The arguments for PRINT are:
+
+the address of the table
+the address of a fullword containing the address of the next available entry
+SEARCH is a subroutine that will search the table for a specific value.
+The arguments for SORT are:
+
+the address of the table
+the address of a fullword containing the address of the next available entry
+the address of TARGET
+the address of a fullword we will use for reporting the result of the search
+There are several requirements for using an external subroutine:
+
+Each external subroutine is actually a separate program. You need a CSECT with the name of the subroutine, as in:
+     BUILD    CSECT
+You need to create a parameter list for the subroutine (a set of consecutive fullwords, each containing the address of a parameter). We did this with internal subroutines.
+You need to call the subroutine, as in:
+     LA      1,BPARMS         Parmlist for BUILD
+     L       15,=V(BUILD)     Get the address of BUILD  
+     BALR    14,15            Branch to BUILD
+Here the BALR instruction will set register 14 = the address of the next instruction after the BALR.
+
+In the subroutine, you need a register save area and standard entry linkage. (You should probably go read about standard entry linkage.)
+At the end of the subroutine, you need standard exit linkage. (You should probably go read about standard exit linkage.)
+Other Requirements
+
+The JCL for this assignment is the same as the JCL for Assignment 4 except the line above to specify the input file.
+You may assume that the table needs to hold no more than 55 values. Each entry is one fullword. Initialize the table to the value -1 (as in 55F'-1').
+In the BUILD subroutine, you may assume that the input file does not contain enough integers to fill the table completely.
+In PRINT, double-space between lines of numbers.
+In the SEARCH subroutine, use a "linear search". Start at the beginning of the table and compare TARGET to each number in turn until either you find TARGET (in which case the result value is 1) or you find the end of the table (in which case the result value is 0). (This is a loop with two conditions.)
+The lines to report on "found" or "not found" should be triple-spaced.
+You may use register equates if you want.
+You may use extended mnemonics such as BH, BL, BNE, etc. for branch instructions.
+Document your program as usual and submit it through Blackboard as usual.

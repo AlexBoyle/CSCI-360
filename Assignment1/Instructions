@@ -1,0 +1,40 @@
+CSCI 360
+
+Assignment 1
+
+50 points
+
+
+This assignment is in three parts:
+
+Part A
+
+Write a program that does the following:
+
+Declare a fullword NUM1 with the value 249.
+Declare a fullword NUM2 with the value 117.
+Subtract NUM2 from NUM1. To do this, simply load these numbers into registers and use an SR instruction.
+Add NUM2 to NUM1. To do this, load the two numbers into registers (a different pair of registers) and use an AR instruction.
+Now use an XDUMP to dump out the registers and look at the register values to see your answer. This just requires XDUMP with no arguments.
+Part B
+
+Modify the program from Part A as follows:
+
+Declare two consecutive fullwords of storage called DIFF and SUM.
+Store (ST) the first answer (NUM1 minus NUM2) into DIFF.
+Store (ST) the second answer (NUM1 plus NUM2) into SUM..
+Use XDUMP to print the values in that area of storage (containing RESULT1 and RESULT2).
+To use XDUMP, you need XDUMP followed by the label followed by the length of the field like this: XDUMP DIFF,8.
+
+Go into the XDUMP output and verify your math is correct.
+Part C
+
+Now rewrite your program using explicit addressing. This means that in the L and ST lines, take out your labels and fill in the addresses of the various fullwords. You can get these addresses from the previous XDUMP output.
+
+Other Notes
+
+Start with the JCL and the trivial little program we had in the lab training exercise. Take out the two SR lines and put in what you need.
+
+Be sure your name and the assignment number (including Part A, B or C) is included in the documentation for each file.
+
+Turn in all three program files (from Parts A, B and C) and the output file from Part C.

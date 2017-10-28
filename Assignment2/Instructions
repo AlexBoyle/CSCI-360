@@ -1,0 +1,129 @@
+CSCI 360
+
+Assignment 2
+
+80 points
+
+
+For this assignment you will write a program that reads in an unknown number of lines, each containing 4-digit numbers, 3 per line. For each line read, print out the numbers X, Y and Z, calculate the value of Y + Z - X and print the result.
+
+Each line has the following format:
+
+     columns 1-3    first number X
+     columns 4-6    blank
+     columns 7-9    second number Y
+     columns 10-12  blank
+     columns 13-15  third number Z
+     columns 16-80  blank
+When all processing is done, print the number of lines read and the sum of the result values from all of the lines.
+
+Program incrementally! That means that you should begin by just reading one record and print out those numbers. When that works, put in a loop. If you get one part working before moving on to the next, your debugging will be much easier and less time-consuming.
+
+Use a top driven loop:
+
+Initialize the counter and the total
+     Top of the loop
+      Read a record
+      If end-of-file, branch to the end of the loop
+      Deal with the record just read using XDECI, arithmetic, XDECO and XPRNT
+      Add 1 to the counter
+      Calculate the value of Y + Z - X
+      Add the result (Y + Z - X) to the total
+      Branch to the top of the loop
+     End of the loop
+     Use XDECO and XPRNT to print the summary lines
+You will need to put labels on two lines, one for the top of the loop and one for the bottom of the loop. You can actually put a label on any line of code, but many people put them on lines that don't do anything else, like this:
+
+     MYLABEL  DS    0H
+Here DS 0H takes up no space. (It declares 0 halfwords on a halfword boundary, and as each instruction is an even number of bytes, the location will already be on a halfword boundary.)
+
+JCL for this assignment
+
+Use the following JCL:
+
+//KCnumberA JOB ,'Your Name',MSGCLASS=H
+//STEP1    EXEC  PGM=ASSIST
+//STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR
+//SYSPRINT   DD  SYSOUT=*
+//SYSIN      DD  *
+************************************************************
+*
+*  Program:     ASSIGN2
+*  Programmer:  Your Name
+*
+*  Register usage:
+*
+************************************************************
+/*
+//FT05F001   DD  *
+8163   2529   2805
+4536   1839   5741
+0591   7843   9487
+4190   3057   2775
+2399   0667   4129
+8118   3961   6535
+4765   0498   1111
+9056   2345   1110
+0001   0002   0003
+9999   9998   9997
+8001   7999   3512
+/*
+//FT06F001   DD SYSOUT=*
+//
+As before, you will need to replace "Your Name" with your own name, and you will need to replace "KCnumber" with your own logon ID.
+
+Your actual code should be after the comment box and before the /* line.
+
+Data
+
+Use the following data for the run you turn in. You may (and probably should) use your own data to test your program.
+
+As indicated above, this should be in your source file between the FT05FT001 line and the following /* line.
+
+8163   2529   2805
+4536   1839   5741
+0591   7843   9487
+4190   3057   2775
+2399   0667   4129
+8118   3961   6535
+4765   0498   1111
+9056   2345   1110
+0001   0002   0003
+9999   9998   9997
+8001   7999   3512
+This is known as instream data. It is also possible to read from a specific disk file by name, and we will do so later.
+
+Other requirements
+
+In the JCL, at the very beginning of the program is a comment box. Notice the place that says "Register Usage". Make a list here of registers you used and how you made use of each one. For instance, you will be using register 15 as your base register, and register 1 is used by XDECI. Thus you might have:
+
+*
+*  Register usage:
+*    1        Used by XDECI
+*   15        Base register
+*
+and probably several more such lines.
+
+The comment box should also list your name and the number of the assignment (Assignment 2).
+
+To use XREAD, you will need to have an 80-byte field to contain each line you read.
+
+To produce the output, you will need to define a couple of output lines containing DC and DS statements (with labels on the DS statements).
+
+Your program should include line documentation. At the end of each line (certainly for most lines) skip one or more spaces and insert a few words describing what that instruction does. Try to line these up so they start in the same column. For instance:
+
+         SR    4,4                     Initialize counter.
+         SR    5,5                     Initialize total.
+If you wish, you may use register equates. These allow you to refer to register 3 as "R3" instead of just "3". To use these, include lines such as
+
+     R0       EQU   0
+     R1       EQU   1
+              .
+              .
+              .
+     R15      EQU   15
+somewhere in your program file (such as at the end). You can read about EQU in our textbook, section 2.11, or on one of the web pages. This is not required.
+
+Name your program file something like "ASSIGN2" or "ASSIGN2".
+
+Submit your program file and output file through Blackboard.
