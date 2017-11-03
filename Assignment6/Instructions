@@ -1,0 +1,136 @@
+Assignment 6
+
+100 points
+
+
+Overview
+
+In this assignment, we have data about clients and their accounts, followed by data about TRANS. The client data will be put into a table and then we will use the records of payments and withdrawals to update the table. The table will be printed and some statistics will be computed.
+
+In particular, this program will make use of external subroutines, character data and packed decimal numbers.
+
+Input
+
+The input to the program will be a file with an unknown number of records. The records are in two groups.
+
+In the first group of records, each record represents a single client of the Odds and Ends Fund and has the following format:
+
+     Columns         Description
+     -------         -----------
+      1 - 10         First Name (characters)
+     11 - 12         blanks             
+     13 - 22         Last Name (characters)
+     23 - 24         blanks
+     25 - 32         Client ID Number (characters)
+     33 - 34         blanks
+     35 - 41         Account Balance (zoned decimal, dollars and cents)
+     42              Sign of the Account Balance (C'+' or C'-')
+     43 - 80         not used (blanks)
+A positive balance indicates that the client owes us money, and a negative balance indicates that we owe the client money.
+
+The first group of records ends with a delimiter record in the above format which has ID Number = 'STOPHERE'.
+
+In the second group of records, each record represents a single TRANS transaction and has the following format:
+
+     Columns         Description
+     -------         -----------
+       1 - 8         Client ID (characters)
+       9 - 10        blanks
+      11             Type of Transaction (1 character:  'D' for deposit,
+                     'W' for withdrawal, or 'B' for balance)
+      12 - 13        blanks
+      14 - 20        Payment Amount (zoned decimal, dollars and cents)
+                     or 0 for a Balance query
+      21 - 22        blanks
+      23 - 30        Date (zoned decimal, DDMMYYYY)
+      31 - 80        blanks
+Use the following JCL statement to specify the input file:
+
+//FT05F001  DD  DSN=KC02314.SPRING17.CSCI360.HW6DATA,DISP=SHR
+Processing Requirements
+
+The main program involves three external subroutines and will carry out the following steps:
+
+Call subroutine BUILD to read the first group of records and store the data in a table.
+BUILD needs three parameters:
+
+the address of the table
+the address of a fullword containing the address of the first unused entry
+the address of the input buffer
+Call subroutine PRINT to print the contents of the table, using appropriate page and column headings. The caption in the page heading should say something like "Odds and Ends Customer Data".
+PRINT needs four parameters:
+
+the address of the table
+the address of a fullword containing the address of the first unused entry
+the address of a caption to use in the page heading
+the address of the page counter
+PRINT also counts the clients and prints:
+
+the number of clients
+the sum of all balances
+the average balance per client
+Call subroutine TRANS to read the second group of records and carry out the transactions, updating the table.
+TRANS needs four parameters:
+
+the address of the table
+the address of a fullword containing the address of the first unused entry
+the address of the input buffer
+the address of the page counter
+TRANS should search for the client ID in the table and then carry out the transaction.
+
+If the transaction is a deposit, subtract the amount from the client's balance. If the transaction is a withdrawal, add the amount to the client's balance. If the transaction is a balance query, there is nothing to do except print the value.
+
+TRANS should print a line about each transaction containing the data from the record along with whether this was a deposit, withdrawal or balance query and the new client Balance.
+
+TRANS should count and print the number of successful transactions and the number of errors.
+
+If the client ID number is not found in the table, TRANS should print a line with an error message.
+
+Call subroutine PRINT to print the contents of the table again. The caption in the page heading should say something like "Odds and Ends Updated Customer Data".
+Output
+
+Each page should have a page heading, centered. The pages should be numbered.
+
+Column headings should be double-spaced from the page header.
+
+In the output from PRINT, the lines of client information should be double spaced. Print no more than 15 lines of client information per page.
+
+In the output from PRINT, the summary lines should be triple-spaced after the last client record. Double-space between summary lines.
+
+In the output from TRANS, the lines of transaction information should be double spaced.
+
+In the output from TRANS, the summary lines should be triple-spaced after the last transaction record. Double-space between summary lines.
+
+The output from TRANS should all fit on one page.
+
+Other Notes
+
+You may assume that the table needs to hold no more than 40 values. Each entry should have the following format:
+First Name (10 characters)
+Last Name (10 characters)
+ID Number (8 characters)
+Account Balance (4 packed decimal bytes)
+When you read in the sign of the balance, you will need to test whether it is '-' and adjust the sign of the Balance value accordingly. (I.e., multiply by =P'-1'.)
+
+As in Assignment 5, we are using external subroutines. Each subroutine and the main routine needs proper entry and exit linkage.
+As you work on this, you may need to XDUMP all or part of the table to check your work. Each line of XDUMP prints 32 bytes of data, starting on a 16-byte boundary, and each table entry is 32 bytes long. It will be easier to look at a single table entry if it begins on a 32-byte boundary. Use the following ORG trick to line up your table on a 32-byte boundary:
+         ORG MAIN+((*-MAIN+31)/32)*32
+TABLE    DS  40CL32
+(This assumes MAIN is the CSECT name.)
+
+Use a DSECT to describe the table entries. It may also be useful to use DSECTs for the two input record formats.
+Write this program incrementally, one subroutine at a time. Start with BUILD and XDUMP the table to see whether BUILD is correct. After that, write and test PRINT. Once you have PRINT working, you can go on to TRANS.
+The JCL for this assignment is the same as the JCL used in Assignments 4 and 5 except for the line given above to provide the data.
+You may not use XDECI or XDECO anywhere in this assignment. The numbers should all be stored in packed decimal format.
+When you print amounts of money, print a leading dollar sign, a decimal point and two digits to the right of the decimal point. If an amount of money is negative, print CR to the right of the value.
+When you print a date, print it in the format DD/MM/YYYY.
+We are making a few simplifying assumptions here. Client balances may be positive, zero or negative.
+A good way to approach this is to work from the outside in:
+start with the skeletons of the four CSECTs
+put in the linkage code
+write the documentation for each CSECT
+in the main routine, define your variables and and write the code to call each subroutine
+invent the DSECT(s)
+Actually making each subroutine do its job will not be hard after all this.
+
+Turn in your work on Blackboard as usual.
