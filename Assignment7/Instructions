@@ -1,0 +1,88 @@
+Assignment 7
+
+100 points
+
+
+Overview
+
+We have a file of information about the chemical elements. Unfortunately, the file was created by a clumsy typist who was careless about upper-case and lower-case letters and who did not line up data in neat columns.
+
+We will write a program that reads this file and stores the data in a table. After that, we will print the information in a report. After that, we will sort the data by atomic number and print another report.
+
+We will use external subroutines in building our program.
+
+Input
+
+The input file contains exactly 118 records. Each record in the input file contains the following pieces of information about a chemical element, in this order but separated and surrounded by blanks:
+
+when the element was first identified (up to 7 characters)
+the name of the element (up to 13 letters)
+the chemical symbol for the element (up to 3 letters)
+the atomic number of the element
+Use the following JCL statement to specify the input file:
+
+//FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HW7DATA,DISP=SHR
+Processing Requirements
+
+The main program will carry out these steps in this order:
+
+Call subroutine BUILD to read the file and store the data in a table.
+The arguments for BUILD are the address of the table and the address of end of the table.
+
+Call subroutine PRINT to print the contents of the table, using appropriate page and column headings.
+The arguments for PRINT are the address of the table, the address of the end of the table and the address of the caption to use in the page heading.
+
+Call subroutine PRINT again.
+Call subroutine SORT to sort the table in ascending order by name. Use the Insertion Sort method. (See the section below.)
+The arguments for SORT are the address of the table and the address of the end of the table.
+
+Call subroutine PRINT again.
+Other Notes
+
+Declare the table to hold 120 entries, each 25 bytes long. Each entry should have the following format:
+
+Date (7 characters)
+Name (13 characters)
+Symbol (3 characters)
+Number (2 bytes packed decimal)
+We will not fill all of the table.
+
+Use a DSECT to describe the table entries.
+
+In the BUILD subroutine, you will need to use TRT and EX to locate each piece of information on each line. You will need to be able to search for blanks and for non-blank characters.
+
+In the BUILD subroutine, you will also need to use TR to make the use of upper-case and lower-case letters consistent:
+
+any letters in the Date should be lower-case, and
+in the Name and Symbol, the first letter should be upper-case and the rest should be lower-case.
+When we first print the list, the caption should be "Chronological List of Elements". When we next print it, the caption should "Elements Sorted by Name". The caption should be centered on its line at the top of the page.
+
+Each report should begin on a new page. Triple-space between the page heading and the column headings. Skip a line after the column headings before printing detail lines. The detail lines should be single-spaced, and we should have no more than 50 lines per page.
+
+If you need to use XDUMP to check your work, it will be useful to have the table aligned on a doubleword boundary. You can do this by using
+
+          DS   0D
+immediately before declaring your table.
+
+You may find the DSECT less useful in the SORT subroutine than in the other subroutines, as you can attach the DSECT to only one address at a time.
+
+The JCL for this assignment is the same as the JCL used in Assignment 6 except for the line specifying the input file.
+
+Turn in your source file and output file as usual on Blackboard.
+
+Insertion Sort
+
+The Insertion Sort method sorts a table as follows: Start at the top of the table. For each entry, move it up a step at a time to wherever it belongs compared to the entries above it.
+
+Here is a description of the algorithm in C (more or less) for a table of N entries.
+
+  for (I = 1; I < N; I++)
+   {
+    J = I;
+    while (J > 0 && (T[J] < T[J-1])
+     {
+      Swap(T[J],T[J-1]);
+      J--;
+     }
+   }
+Translating this into assembly language is very much like working with Bubble Sort or Selection Sort in assembly language.
