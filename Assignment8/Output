@@ -1,0 +1,733 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+00.49.21 JOB04785 ---- TUESDAY,   28 NOV 2017 ----
+00.49.21 JOB04785  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+00.49.22 JOB04785  ICH70001I KC03I2C  LAST ACCESS AT 00:49:21 ON TUESDAY, NOVEMBER 28, 2017
+00.49.22 JOB04785  $HASP373 KC03I2CA STARTED - INIT 2    - CLASS A        - SYS S0W1
+00.49.22 JOB04785  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+00.49.22 JOB04785  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+00.49.22 JOB04785  -KC03I2CA                      00    160 ******    .00     .0    969   0      0      0      0     0
+00.49.22 JOB04785  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+00.49.22 JOB04785  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  28 NOV 2017 JOB EXECUTION DATE
+
+
+          370 CARDS READ
+
+
+          672 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+           50 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB04785
+       2 //STEP1    EXEC  PGM=ASSIST                                                     
+       3 //STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                            
+       4 //SYSPRINT   DD  SYSOUT=*                                                       
+       5 //SYSIN      DD  *                                                              
+       6 //FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HW8DATA,DISP=SHR                   
+       7 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 00:49:21 ON TUESDAY, NOVEMBER 28, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME FT05F001
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB04785.D0000102.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB04785.D0000101.?         SYSIN         
+IGD104I KC02314.AUTUMN17.CSCI360.HW8DATA             RETAINED,  DDNAME=FT05F001
+IEF373I STEP/STEP1   /START 2017332.0049
+IEF032I STEP/STEP1   /STOP  2017332.0049 
+        CPU:     0 HR  00 MIN  00.03 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11820K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017332.0049
+IEF033I  JOB/KC03I2CA/STOP  2017332.0049 
+        CPU:     0 HR  00 MIN  00.03 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ************************************************************                                
+                                      2 *                                                                                           
+                                      3 *  Program:     ASSIGN7                                                                     
+                                      4 *  Programmer:  Alex Boyle                                                                  
+                                      5 ************************************************************                                
+000000                                6 ENTRY   DSECT     Format for Table                                                          
+000000                                7 ID      DS     CL4                                                                          
+000004                                8 PAS     DS     CL12                                                                         
+000010                                9 REN     DS     CL2                                                                          
+000012                               10 MAJ     DS     CL4                                                                          
+000016                               11 GPA     DS     CL2                                                                          
+000018                               12 TCH     DS     CL2                                                                          
+00001A                               13 HCE     DS     CL1   27 bytes                                                               
+                                     14 ***********************************                                                         
+                                     15 *Name: Main                                                                                 
+                                     16 *                                                                                           
+                                     17 * This drives the program by branching to the needed locations                              
+                                     18 *                                                                                           
+                                     19 *  Register usage:                                                                          
+                                     20 *  15   MAIN                                                                                
+                                     21 *  14   Exit                                                                                
+                                     22 *  13   Save location                                                                       
+                                     23 *  10   Location to branch to                                                               
+                                     24 *  1    Params                                                                              
+                                     25 ***********************************                                                         
+000000                               26 MAIN     CSECT                                                                              
+000000                               27          USING MAIN,15                                                                      
+000000 50E0 FD18            00D18    28          ST    14,EXIT      Save Exit Location                                              
+000004 41D0 FCD0            00CD0    29          LA    13,SAVEM     Set the save area                                               
+000008 4110 F080            00080    30          LA    1,TABLE      Start Loading params into PARMS                                 
+00000C 5010 FCC0            00CC0    31          ST    1,PARMS                                                                      
+000010 4110 FC1C            00C1C    32          LA    1,EOT                                                                        
+000014 5010 FCC4            00CC4    33          ST    1,PARMS+4                                                                    
+000018 4110 FCC0            00CC0    34          LA    1,PARMS      End Loading Params into PARMS                                   
+00001C 58A0 F060            00060    35          L     10,=V(BUILD)                                                                 
+000020 05EA                          36          BALR  14,10 Branch to Build                                                        
+000022 E060 F080 00A2 00080          37          XDUMP TABLE,162                                                                    
+000028 4110 FC20            00C20    38          LA    1,HEADA                                                                      
+00002C 5010 FCC8            00CC8    39          ST    1,PARMS+8                                                                    
+000030 4110 FCC0            00CC0    40          LA    1,PARMS      End Loading Params into PARMS                                   
+000034 58A0 F064            00064    41          L     10,=V(PRINT)                                                                 
+000038 05EA                          42          BALR  14,10 Branch to Print                                                        
+00003A 4110 FCC0            00CC0    43          LA    1,PARMS      End Loading Params into PARMS                                   
+00003E 58A0 F068            00068    44          L     10,=V(SORT)                                                                  
+000042 05EA                          45          BALR  14,10 Branch to sort                                                         
+000044 4110 FC6E            00C6E    46          LA    1,HEADB                                                                      
+000048 5010 FCC8            00CC8    47          ST    1,PARMS+8                                                                    
+00004C 4110 FCC0            00CC0    48          LA    1,PARMS      End Loading Params into PARMS                                   
+000050 58A0 F064            00064    49          L     10,=V(PRINT)                                                                 
+000054 05EA                          50          BALR  14,10 Branch to Print                                                        
+                                     51 *                                                                                           
+000056 58E0 FD18            00D18    52          L     14,EXIT      Load exit location                                              
+
+                                                                                                               PAGE    2            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+00005A 07FE                          53          BR    14           End program                                                     
+                                     54          LTORG              Literals are put here                                           
+000060 00000D20                      55                =V(BUILD)                                                                    
+000064 00000E90                      56                =V(PRINT)                                                                    
+000068 000011A8                      57                =V(SORT)                                                                     
+000080                               58          ORG   MAIN+((*-MAIN+31)/32)*32                                                     
+000080 4040404040404040              59 TABLE    DC    110CL27'                           '                                         
+000C1C                               60 EOT      DS    F                                                                            
+000C20 F140404040404040              61 HEADA    DC    CL46'1                          Student Information'                         
+000C4E 4040404040404040              62          DC    CL32'                        Page   1'                                       
+000C6E F140404040404040              63 HEADB    DC    CL48'1                          Student Information'                         
+000C9E 4082A840C7D7C140              64          DC    CL32' by GPA                 Page   4'                                       
+000CC0 0000000000000000              65 PARMS    DC    4F'0'                                                                        
+000CD0                               66 SAVEM    DS    18F'0'                                                                       
+000D18                               67 EXIT     DS    F                                                                            
+                                     68 ***********************************                                                         
+                                     69 *NAME: BUILD                                                                                
+                                     70 *                                                                                           
+                                     71 *FUNCTION: This subroutine Takes in two params(table location,EOT)                          
+                                     72 *          and fills the givin table from the input.                                        
+                                     73 *                                                                                           
+                                     74 *INPUT: Data to pe put into a table                                                         
+                                     75 *                                                                                           
+                                     76 *OUTPUT: A fulled table and a set EOT pointer                                               
+                                     77 *                                                                                           
+                                     78 *ENTRY CONDS: 0(1) Table pointer                                                            
+                                     79 *             4(1) location or EOT pointer                                                  
+                                     80 *                                                                                           
+                                     81 *EXIT CONDS: 0(1) Table that was filled                                                     
+                                     82 *            4(1) location or EOT pointer                                                   
+                                     83 *                                                                                           
+                                     84 *  Register usage:                                                                          
+                                     85 *   15    DONT USE                                                                          
+                                     86 *   14    Exit                                                                              
+                                     87 *   13    Save Area                                                                         
+                                     88 *    8    Location of EOT                                                                   
+                                     89 *    7    Start of table                                                                    
+                                     90 *    4    Length of item in the buff                                                        
+                                     91 *    2,3  buffer for binary formating                                                       
+                                     92 *    1    Location of params                                                                
+                                     93 ***********************************                                                         
+000D20                               94 BUILD    CSECT                                                                              
+000D20 90EC D00C            0000C    95          STM   14,12,12(13)                                                                 
+000D24 18CF                          96          LR    12,15                                                                        
+000D20                               97          USING BUILD,10  External register is R10                                           
+000D26 41E0 A124            00E44    98          LA    14,SAVEB                                                                     
+000D2A 50D0 E004            00004    99          ST    13,4(,14)                                                                    
+000D2E 50E0 D008            00008   100          ST    14,8(,13)                                                                    
+000D32 18DE                         101          LR    13,14                                                                        
+                                    102 *                                                                                           
+000D34 9878 1000            00000   103          LM    7,8,0(1) Load params R2=table R3=last entry, R4=buff                         
+000000                              104          USING ENTRY,7                                                                      
+000D38 E000 A0C0 0050 00DE0         105 READ     XREAD BUFF,80 read in lines                                                        
+000D3E 4740 A0B0            00DD0   106          BL    REND                                                                         
+000D42 4110 A0C0            00DE0   107          LA    1,BUFF                                                                       
+                                    108 *ID                                                                                         
+000D46 F277 A118 1001 00E38 00001   109          PACK  TEMP(8),1(8,1) Pack ID                                                       
+
+                                                                                                               PAGE    3            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+000D4C 4F20 A118            00E38   110          CVB   2,TEMP Convert id to binary                                                  
+000D50 BE2F 7000            00000   111          STCM  2,B'1111',ID Store                                                           
+                                    112 *Password                                                                                   
+000D54 D20B 7004 100A 00004 0000A   113          MVC   PAS(12),10(1)                                                                
+000D5A D703 7004 7000 00004 00000   114          XC    PAS(4),ID  Hash password                                                     
+000D60 D703 7008 7000 00008 00000   115          XC    PAS+4(4),ID Hash password                                                    
+000D66 D703 700C 7000 0000C 00000   116          XC    PAS+8(4),ID Hash password                                                    
+                                    117 *Password Reset                                                                             
+000D6C F273 A118 101B 00E38 0001B   118          PACK  TEMP(8),27(4,1) Pack year                                                    
+000D72 FB72 A118 A120 00E38 00E40   119          SP    TEMP(8),NUM(3) subtract 1980                                                 
+000D78 4F20 A118            00E38   120          CVB   2,TEMP convert to binary                                                     
+000D7C 8920 0009            00009   121          SLL   2,9 move year over 9                                                         
+000D80 F271 A118 1017 00E38 00017   122          PACK  TEMP(8),23(2,1) pack day                                                     
+000D86 4F30 A118            00E38   123          CVB   3,TEMP convert to binary                                                     
+000D8A 8930 0004            00004   124          SLL   3,4 move over 4                                                              
+000D8E 1723                         125          XR    2,3 add to R2                                                                
+000D90 F271 A118 1019 00E38 00019   126          PACK  TEMP(8),25(2,1) Pack month                                                   
+000D96 4F30 A118            00E38   127          CVB   3,TEMP convert to binary                                                     
+000D9A 1723                         128          XR    2,3 add to R2                                                                
+000D9C BE23 7010            00010   129          STCM  2,B'0011',REN Store in REN                                                   
+                                    130 *Major                                                                                      
+000DA0 D203 7012 1020 00012 00020   131          MVC   MAJ(4),32(1) store Major                                                     
+                                    132 *GPA                                                                                        
+000DA6 F212 7016 1025 00016 00025   133          PACK  GPA(2),37(3,1) Store GPA as packed                                           
+                                    134 *Hours Currently Enrolled                                                                   
+000DAC F271 A118 102D 00E38 0002D   135          PACK  TEMP(8),45(2,1) Pack HCE                                                     
+000DB2 4F20 A118            00E38   136          CVB   2,TEMP Convert to binary                                                     
+000DB6 BE21 701A            0001A   137          STCM  2,B'0001',HCE Store in HCE                                                   
+                                    138 *Total Credit Hours                                                                         
+000DBA F272 A118 1029 00E38 00029   139          PACK  TEMP(8),41(3,1) Pack TCH                                                     
+000DC0 4F20 A118            00E38   140          CVB   2,TEMP convert                                                               
+000DC4 BE23 7018            00018   141          STCM  2,B'0011',TCH Store                                                          
+                                    142 *                                                                                           
+000DC8 4170 701B            0001B   143          LA    7,27(,7) Advance pointer                                                     
+000DCC 47F0 A018            00D38   144          B     READ    Back to top of loop                                                  
+000DD0                              145 REND     DS    0H                                                                           
+000DD0 5070 8000            00000   146          ST    7,0(0,8) Store EOT                                                           
+                                    147 *                                                                                           
+000DD4 58D0 D004            00004   148          L     13,4(,13)                                                                    
+000DD8 98EC D00C            0000C   149          LM    14,12,12(13)                                                                 
+000DDC 07FE                         150          BR    14           End subroutine                                                  
+                                    151          LTORG              Literals are put here                                           
+                                    152 *                                                                                           
+000DE0 4040404040404040             153 BUFF     DC    80C' '                                                                       
+000E30 5C                           154          DC    C'*'                                                                         
+000E38                              155 TEMP     DS    D                                                                            
+000E40 01980C                       156 NUM      DC    PL3'1980'                                                                    
+000E44                              157 SAVEB    DS    18F'0'                                                                       
+                                    158 ***********************************                                                         
+                                    159 *NAME: PRINT                                                                                
+                                    160 *                                                                                           
+                                    161 *FUNCTION: This subroutine prints a table givin to it                                       
+                                    162 *                                                                                           
+                                    163 *OUTPUT: A formated table printed in pages                                                  
+                                    164 *                                                                                           
+                                    165 *ENTRY CONDS: 0(1) Table pointer                                                            
+                                    166 *             4(1) location or EOT pointer                                                  
+
+                                                                                                               PAGE    4            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                    167 *             8(1) Location of page headder                                                 
+                                    168 *                                                                                           
+                                    169 *                                                                                           
+                                    170 *  Register usage:                                                                          
+                                    171 *   15    DONT USE                                                                          
+                                    172 *   14    Exit                                                                              
+                                    173 *   13    Save Area                                                                         
+                                    174 *   9     Location of page headder                                                          
+                                    175 *   8     Location of EOT                                                                   
+                                    176 *   7     Table pointer                                                                     
+                                    177 *   6     counter                                                                           
+                                    178 *   2   Registers for binary  changing                                                      
+                                    179 ***********************************                                                         
+000E90                              180 PRINT    CSECT                                                                              
+000E90 90EC D00C            0000C   181          STM   14,12,12(13)                                                                 
+000E94 18CF                         182          LR    12,15                                                                        
+000E90                              183          USING PRINT,10     Use R10 as base register                                        
+000E96 9879 1000            00000   184          LM    7,9,0(1)     Load params into R3,R4, and R5                                  
+000E9A 41E0 A2CC            0115C   185          LA    14,SAVEC                                                                     
+000E9E 50D0 E004            00004   186          ST    13,4(,14)                                                                    
+000EA2 50E0 D008            00008   187          ST    14,8(,13)                                                                    
+000EA6 18DE                         188          LR    13,14                                                                        
+                                    189 *                                                                                           
+000000                              190          USING ENTRY,7                                                                      
+000EA8 5860 A190            01020   191          L     6,=F'0' Counter ofr elements per page                                        
+000EAC 5970 8000            00000   192 PLOOP    C     7,0(0,8)                                                                     
+000EB0 4780 A180            01010   193          BE    PEND                                                                         
+000EB4 5960 A190            01020   194          C     6,=F'0' Check element counter                                                
+000EB8 4780 A154            00FE4   195          BE    PHEADDER Print headder if true                                               
+000EBC                              196 CONT     DS    0H                                                                           
+                                    197 *                                                                                           
+000EBC D207 A228 7000 010B8 00000   198          MVC   DTEMP(8),ID move id to a fullword bounday                                    
+000EC2 5820 A228            010B8   199          L     2,DTEMP Load ID                                                              
+000EC6 4E20 A228            010B8   200          CVD   2,DTEMP convert to packed                                                    
+000ECA D209 A1CA A1A8 0105A 01038   201          MVC   PID(10),=X'40212020202020202020' format ID                                   
+000ED0 DE09 A1CA A22B 0105A 010BB   202          ED    PID(10),DTEMP+3 Format                                                       
+000ED6 9240 A1CA      0105A         203          MVI   PLINE+1,C' '                                                                 
+000EDA 92D8 A1CB      0105B         204          MVI   PLINE+2,C'Q'                                                                 
+                                    205 *                                                                                           
+000EDE D20B A214 7004 010A4 00004   206          MVC   PTEMP(12),PAS Set passowrd                                                   
+000EE4 D703 A214 7000 010A4 00000   207          XC    PTEMP(4),ID unhash                                                           
+000EEA D703 A218 7000 010A8 00000   208          XC    PTEMP+4(4),ID unhash                                                         
+000EF0 D703 A21C 7000 010AC 00000   209          XC    PTEMP+8(4),ID unhash                                                         
+000EF6 D20B A1D6 A214 01066 010A4   210          MVC   PPAS(12),PTEMP store pass                                                    
+                                    211 *                                                                                           
+000EFC D203 A220 A194 010B0 01024   212          MVC   FTEMP(4),=X'00000000'                                                        
+000F02 D201 A222 7010 010B2 00010   213          MVC   FTEMP+2(2),REN Set REN                                                       
+000F08 5820 A220            010B0   214          L     2,FTEMP load Ren                                                             
+000F0C 8820 0009            00009   215          SRL   2,9  Clear all but year                                                      
+000F10 4E20 A228            010B8   216          CVD   2,DTEMP                                                                      
+000F14 F827 A228 A228 010B8 010B8   217          ZAP   DTEMP(3),DTEMP(8) fomat packed                                               
+000F1A FA22 A228 A1BE 010B8 0104E   218          AP    DTEMP(3),=PL3'1980'                                                          
+000F20 D205 A1EC A1B2 0107C 01042   219          MVC   PDAT+6(6),=X'402120202020' Format                                            
+000F26 DE05 A1EC A228 0107C 010B8   220          ED    PDAT+6(6),DTEMP                                                              
+000F2C 5820 A220            010B0   221          L     2,FTEMP                                                                      
+000F30 8920 001B            0001B   222          SLL   2,27 Clear all but day                                                       
+000F34 8820 001B            0001B   223          SRL   2,27                                                                         
+
+                                                                                                               PAGE    5            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+000F38 4E20 A228            010B8   224          CVD   2,DTEMP                                                                      
+000F3C F817 A228 A228 010B8 010B8   225          ZAP   DTEMP(2),DTEMP(8) fomat packed                                               
+000F42 D204 A1E9 A1C1 01079 01051   226          MVC   PDAT+3(5),=X'4021202061' Format                                              
+000F48 DE03 A1E9 A228 01079 010B8   227          ED    PDAT+3(4),DTEMP                                                              
+000F4E 5820 A220            010B0   228          L     2,FTEMP                                                                      
+000F52 8920 0017            00017   229          SLL   2,23 Clear all but month                                                     
+000F56 8820 001C            0001C   230          SRL   2,28                                                                         
+000F5A 4E20 A228            010B8   231          CVD   2,DTEMP                                                                      
+000F5E F817 A228 A228 010B8 010B8   232          ZAP   DTEMP(2),DTEMP(8) fomat packed                                               
+000F64 D204 A1E6 A1C1 01076 01051   233          MVC   PDAT(5),=X'4021202061' Format                                                
+000F6A DE03 A1E6 A228 01076 010B8   234          ED    PDAT(4),DTEMP                                                                
+                                    235 *                                                                                           
+000F70 D203 A1F7 7012 01087 00012   236          MVC   PMAJ(4),MAJ set major                                                        
+                                    237 *                                                                                           
+000F76 D204 A1FF A1B8 0108F 01048   238          MVC   PGPA(5),=X'F0214B202040' format                                              
+000F7C DE04 A1FF 7016 0108F 00016   239          ED    PGPA(5),GPA set GPA                                                          
+000F82 9240 A1FF      0108F         240          MVI   PGPA,C' '                                                                    
+                                    241 *                                                                                           
+000F86 D203 A220 A194 010B0 01024   242          MVC   FTEMP(4),=X'00000000'                                                        
+000F8C D201 A222 7018 010B2 00018   243          MVC   FTEMP+2(2),TCH set TCH                                                       
+000F92 5820 A220            010B0   244          L     2,FTEMP load                                                                 
+000F96 4E20 A228            010B8   245          CVD   2,DTEMP convert to packed                                                    
+000F9A F817 A228 A228 010B8 010B8   246          ZAP   DTEMP(2),DTEMP(8) format packed                                              
+000FA0 D203 A208 A198 01098 01028   247          MVC   PTCH(4),=X'40202120' format                                                  
+000FA6 DE03 A208 A228 01098 010B8   248          ED    PTCH(4),DTEMP format                                                         
+                                    249 *                                                                                           
+000FAC D203 A220 A194 010B0 01024   250          MVC   FTEMP(4),=X'00000000'                                                        
+000FB2 D200 A223 701A 010B3 0001A   251          MVC   FTEMP+3(1),HCE set HCE                                                       
+000FB8 5820 A220            010B0   252          L     2,FTEMP load                                                                 
+000FBC 4E20 A228            010B8   253          CVD   2,DTEMP convert to packed                                                    
+000FC0 F817 A228 A228 010B8 010B8   254          ZAP   DTEMP(2),DTEMP(8) format packed                                              
+000FC6 D203 A210 A198 010A0 01028   255          MVC   PHCE(4),=X'40202120' fomat                                                   
+000FCC DE03 A210 A228 010A0 010B8   256          ED    PHCE(4),DTEMP fill format                                                    
+000FD2 E020 A1C9 004B 01059         257          XPRNT PLINE,75 print line                                                          
+000FD8 4170 701B            0001B   258          LA    7,27(,7) advance pointer                                                     
+000FDC 5B60 A19C            0102C   259          S     6,=F'1'                                                                      
+000FE0 47F0 A01C            00EAC   260          B     PLOOP                                                                        
+                                    261 *                                                                                           
+000FE4 5860 A1A0            01030   262 PHEADDER L     6,=F'40' Set counter to 50                                                   
+000FE8 D203 9041 A1A4 00041 01034   263          MVC   65(4,9),=X'40202020' fromat pge number                                       
+000FEE DE03 9041 A1C7 00041 01057   264          ED    65(4,9),PCOUNT set page number                                               
+000FF4 E020 9000 0045 00000         265          XPRNT 0(,9),69 print page headder                                                  
+000FFA E020 A230 0045 010C0         266          XPRNT HEAD1,69 Print table headder                                                 
+001000 E020 A27E 0045 0110E         267          XPRNT HEAD2,69 Print table headder                                                 
+001006 FA10 A1C7 A1C6 01057 01056   268          AP    PCOUNT,=PL1'1' add one to page count                                         
+00100C 47F0 A02C            00EBC   269          B     CONT Continue printing                                                       
+                                    270 *                                                                                           
+001010 58D0 D004            00004   271 PEND     L     13,4(,13)                                                                    
+001014 98EC D00C            0000C   272          LM    14,12,12(13)                                                                 
+001018 07FE                         273          BR    14           End of subroutine                                               
+                                    274          LTORG              Literals are put here                                           
+001020 00000000                     275                =F'0'                                                                        
+001024 00000000                     276                =X'00000000'                                                                 
+001028 40202120                     277                =X'40202120'                                                                 
+00102C 00000001                     278                =F'1'                                                                        
+001030 00000028                     279                =F'40'                                                                       
+001034 40202020                     280                =X'40202020'                                                                 
+
+                                                                                                               PAGE    6            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+001038 4021202020202020             281                =X'40212020202020202020'                                                     
+001042 402120202020                 282                =X'402120202020'                                                             
+001048 F0214B202040                 283                =X'F0214B202040'                                                             
+00104E 01980C                       284                =PL3'1980'                                                                   
+001051 4021202061                   285                =X'4021202061'                                                               
+001056 1C                           286                =PL1'1'                                                                      
+001057 001C                         287 PCOUNT   DC    PL2'1'                                                                       
+001059 40                           288 PLINE    DC    1C' '                                                                        
+00105A 4040404040404040             289 PID      DC    10C' '                                                                       
+001064 4040                         290          DC    2C' '                                                                        
+001066 4040404040404040             291 PPAS     DC    12C' '                                                                       
+001072 40404040                     292          DC    4C' '                                                                        
+001076 4040404040404040             293 PDAT     DC    12C' '                                                                       
+001082 4040404040                   294          DC    5C' '                                                                        
+001087 40404040                     295 PMAJ     DC    4C' '                                                                        
+00108B 40404040                     296          DC    4C' '                                                                        
+00108F 4040404040                   297 PGPA     DC    5C' '                                                                        
+001094 40404040                     298          DC    4C' '                                                                        
+001098 40404040                     299 PTCH     DC    4C' '                                                                        
+00109C 40404040                     300          DC    4C' '                                                                        
+0010A0 40404040                     301 PHCE     DC    4C' '  75L                                                                   
+0010A4 4040404040404040             302 PTEMP    DC    12C' '                                                                       
+0010B0                              303 FTEMP    DS    F                                                                            
+0010B8                              304 DTEMP    DS    D                                                                            
+0010C0 604040E2A3A48485             305 HEAD1    DC    CL46'-  Student                                    '                         
+0010EE 4040404040404040             306          DC    CL32'                  Total  Current'                                       
+00110E 40404040C9C44040             307 HEAD2    DC    CL46'    ID        Password         Renewal Date   '                         
+00113C D481919699404040             308          DC    CL32'Major     GPA     Hours    Hours'                                       
+00115C                              309 SAVEC    DS    18F'0'                                                                       
+                                    310 ***********************************                                                         
+                                    311 *NAME: SORT                                                                                 
+                                    312 *                                                                                           
+                                    313 *FUNCTION: This subroutine sorts a table alphabeticly based on name                         
+                                    314 *                                                                                           
+                                    315 *                                                                                           
+                                    316 *OUTPUT: a sorted table                                                                     
+                                    317 *                                                                                           
+                                    318 *ENTRY CONDS: 0(1) Table pointer                                                            
+                                    319 *             4(1) location or EOT pointer                                                  
+                                    320 *                                                                                           
+                                    321 *EXIT CONDS: 0(1) An alphabeticly sorted table                                              
+                                    322 *            4(1) location or EOT pointer                                                   
+                                    323 *                                                                                           
+                                    324 *  Register usage:                                                                          
+                                    325 *   15    DONT USE                                                                          
+                                    326 *   14    Exit                                                                              
+                                    327 *   13    Save Area                                                                         
+                                    328 *    8    Location of EOT                                                                   
+                                    329 *    7    Location of table                                                                 
+                                    330 *    4    lower table element                                                               
+                                    331 *    2    sort start location                                                               
+                                    332 ***********************************                                                         
+0011A8                              333 SORT   CSECT                                                                                
+0011A8 90EC D00C            0000C   334          STM   14,12,12(13)                                                                 
+0011AC 18CF                         335          LR    12,15                                                                        
+0011A8                              336          USING SORT,10                                                                      
+0011AE 41E0 A07C            01224   337          LA    14,SAVED                                                                     
+
+                                                                                                               PAGE    7            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+0011B2 50D0 E004            00004   338          ST    13,4(,14)                                                                    
+0011B6 50E0 D008            00008   339          ST    14,8(,13)                                                                    
+0011BA 18DE                         340          LR    13,14                                                                        
+0011BC 9878 1000            00000   341          LM    7,8,0(1)     Load params into R3,R4, and R5                                  
+                                    342 *                                                                                           
+0011C0 5820 7000            00000   343          L     2,0(,7)                                                                      
+0011C4 5880 8000            00000   344          L     8,0(,8)                                                                      
+0011C8 5B80 A078            01220   345          S     8,=F'27'                                                                     
+000000                              346          USING ENTRY,2                                                                      
+0011CC                              347 FOR      DS    0H For the number of elements in the table                                   
+0011CC 5B80 A078            01220   348          S     8,=F'27'                                                                     
+0011D0 1827                         349          LR    2,7                                                                          
+0011D2 5B20 A078            01220   350          S     2,=F'27'                                                                     
+0011D6 1928                         351          CR    2,8                                                                          
+0011D8 4780 A06A            01212   352          BE    SEND                                                                         
+0011DC 4720 A06A            01212   353          BH    SEND                                                                         
+0011E0                              354 WHILE    DS    0H While the lower element is greater than the upper                         
+0011E0 5A20 A078            01220   355          A     2,=F'27'                                                                     
+0011E4 D501 2016 2031 00016 00031   356          CLC   22(2,2),49(2) Comparison                                                     
+0011EA 4740 A054            011FC   357          BL    SWAP Branch to swap on Low                                                   
+0011EE                              358 BSWAP    DS    0H                                                                           
+0011EE 1928                         359          CR    2,8                                                                          
+0011F0 4720 A024            011CC   360          BH    FOR                                                                          
+0011F4 4740 A038            011E0   361          BL   WHILE                                                                         
+0011F8 47F0 A024            011CC   362          B     FOR branch to top of for                                                     
+                                    363 *                                                                                           
+0011FC                              364 SWAP     DS    0H Swap the two elements                                                     
+0011FC D21A A0C4 2000 0126C 00000   365          MVC   STEMP(27),0(2) Store R3 in temp                                              
+001202 D21A 2000 201B 00000 0001B   366          MVC   0(27,2),27(2)  Store R4 in R3                                                
+001208 D21A 201B A0C4 0001B 0126C   367          MVC   27(27,2),STEMP  Store temp in R4                                             
+00120E 47F0 A046            011EE   368          B     BSWAP                                                                        
+                                    369 *                                                                                           
+001212 58D0 D004            00004   370 SEND     L     13,4(,13)                                                                    
+001216 98EC D00C            0000C   371          LM    14,12,12(13)                                                                 
+00121A 07FE                         372          BR    14           End of subroutine                                               
+                                    373          LTORG              Literals are put here                                           
+001220 0000001B                     374                =F'27'                                                                       
+001224                              375 SAVED    DS    18F'0'                                                                       
+00126C                              376 STEMP    DS    27C                                                                          
+                                    377 ***********************************                                                         
+                                    378          END   MAIN                                                                         
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:   16576 HIGH:    1724 LEAVING:  475268 FREE BYTES. AVERAGE:       48 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.002 SECS,   189500 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+BEGIN XSNAP - CALL     1 AT D0000028 USER STORAGE                                                                                   
+
+                             CORE ADDRESSES SPECIFIED-     000080 TO 000122                                                         
+000080   0221701E 95A0D2BC A4B7E99A 4261305E    4CFBD4E4 E2C3010F 00161103 A6FFD687   *......K...Z.......MUSC........O.*            
+0000A0   3F6970A1 047E4143 E6BF964B 7CD4E4E2    C3110F00 420603BE 99EBA537 0C488627   *........W....MUSC...............*            
+0000C0   10498028 0D624C1B D7C8E8E2 190F0037    12039777 E29012D4 76861EE2 A243D737   *........PHYS........S..M...S..P.*            
+0000E0   A24ACCC2 C9D6D338 0F00270E 01B2F59D    99147004 A21AB5DD 41F2B5DD 4D23D7C8   *...BIOL.......5..........2....PH*            
+000100   E8E2130F 00120400 7ACEA0F1 883D54F5    8C3958F9 8A8EE04C D2D7C8E8 E2190F00   *YS.........1...5...9....KPHYS...*            
+000120   4602029E 2D8DF267 D57AF46B D97EF06F    6DCD4AA3 C3E2C3C9 170F002C 01024EFD   *......2.N.4.R.0.....CSCI........*            
+
+                                                                                                                                    
+
+                          Student Information                      1                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q35745822  password          07/27/2018     MUSC     0.10      22      17                                                          
+ Q61276118  drowssap          11/28/2017     MUSC     1.10      66       6                                                          
+ Q62822891  winteriscomi      00/27/2018     PHYS     1.90      55      18                                                          
+ Q60258274  letmein           06/12/2017     BIOL     3.80      39      14                                                          
+ Q28505501  qwerty            09/03/2018     PHYS     1.30      18       4                                                          
+ Q08048288  1234567890        06/18/2018     PHYS     1.90      70       2                                                          
+ Q43920781  0987654321        05/03/2017     CSCI     1.70      44       1                                                          
+ Q38731131  asdfghjkl         12/02/2018     MUSC     2.50      80       9                                                          
+ Q01810721  zxcvbnm           07/24/2018     MATH     2.90      34       8                                                          
+ Q46232138  qwertyuiop        03/04/2018     PHYS     0.10      91       3                                                          
+ Q35364980  0011223344        01/23/2018     PHYS     3.40      42      12                                                          
+ Q13967108  answeris42        03/11/2018     PSYC     3.00      88       4                                                          
+ Q61826057  314159265359      07/09/2018     MATH     2.70      16       2                                                          
+ Q36515553  05772156649       11/28/2017     ANTH     0.30     107       5                                                          
+ Q63001752  2718281828        13/26/2018     CSCI     3.60      82      23                                                          
+ Q31773247  password123       12/25/2018     MATH     1.90     118      18                                                          
+ Q72982045  8675309           10/07/2018     PHYS     2.30      85      23                                                          
+ Q52385163  0101010           07/20/2018     PHYS     1.60      69      13                                                          
+ Q34404557  !@#$%^&*()        13/04/2018     PHYS     0.30      30      23                                                          
+ Q25522904  F5F5F5F5F5F5      06/28/2017     ANTH     2.70      99      18                                                          
+ Q71973135  5Fg1{x^3n(        09/27/2017     PHYS     0.20     106       5                                                          
+ Q57509589  Computer          09/10/2017     MATH     2.10      60       9                                                          
+ Q44072762  Laptop            05/08/2018     ANTH     0.60      87      19                                                          
+ Q94539607  WorldOfWarcr      08/10/2017     MUSC     0.20      98      23                                                          
+ Q43612144  CallOfDuty        10/08/2018     PHYS     1.10      24      15                                                          
+ Q58517153  funny             04/24/2018     PHYS     0.30      64      21                                                          
+ Q68537648  weakpass          04/24/2018     PHYS     1.60      92      14                                                          
+ Q74770424  strongpass        14/10/2017     PHYS     1.30      66      23                                                          
+ Q90926219  metarzan          02/07/2018     BIOL     0.30      40      12                                                          
+ Q09999853  youjane           07/07/2018     ANTH     0.30      91       6                                                          
+ Q89324332  REDBULL           06/25/2018     CSCI     0.40       0       5                                                          
+ Q41997419  racecar           05/22/2018     ANTH     2.00       4      15                                                          
+ Q49004688  iloveschool       06/28/2017     MUSC     2.60     114      24                                                          
+ Q93366146  aliceinwonde      07/08/2017     ANTH     1.50      68       2                                                          
+ Q67994516  magnets?          12/28/2017     BIOL     3.70      36      22                                                          
+ Q62143228  shiny             12/08/2018     ANTH     2.40      91       4                                                          
+ Q63143187  darkside          07/03/2018     BIOL     2.50       9      16                                                          
+ Q53501342  expectopatro      08/24/2018     PHYS     0.90     110      13                                                          
+ Q78138644  nedstark          02/12/2017     MATH     2.30      88      14                                                          
+ Q74378433  indianajones      04/28/2017     PHYS     0.20      86      11                                                          
+
+                          Student Information                      2                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q22539726  F4F4F4F4F4F4      02/03/2018     PSYC     4.00       5       1                                                          
+ Q93448440  papajohns         01/02/2018     PHYS     0.70      65      13                                                          
+ Q11109056  pizzahut          06/05/2018     ANTH     1.70     110      10                                                          
+ Q88979192  subwayisgood      12/08/2018     PHYS     1.00      71       9                                                          
+ Q98055507  mccydisbad        07/18/2018     PHYS     0.80      63      16                                                          
+ Q71491640  burgerpage        02/03/2018     MUSC     1.30      78      14                                                          
+ Q79504142  redchicken        04/20/2018     PHYS     0.50      94      22                                                          
+ Q20279768  yellowchicke      14/02/2018     PHYS     2.90     118      18                                                          
+ Q48240272  blue'ngreen       08/26/2017     PSYC     2.50       7       2                                                          
+ Q05275510  maketeal          10/17/2017     PSYC     0.90      70      14                                                          
+ Q71794442  acquirecurre      03/08/2017     PSYC     3.80      17       8                                                          
+ Q66267468  disregardfem      10/06/2018     MUSC     1.50      46       5                                                          
+ Q39119331  doyouevenlif      08/22/2018     PSYC     2.10      72      21                                                          
+ Q04988507  dudebrodude       04/17/2017     MUSC     1.90      74      16                                                          
+ Q20555902  Brodin            11/18/2018     PHYS     3.30      65      12                                                          
+ Q18118698  taylorslow        00/20/2018     MATH     1.60      38       5                                                          
+ Q70645080  googlethis        13/12/2017     PHYS     2.70      33       4                                                          
+ Q12775071  /r/funny          13/10/2017     PSYC     0.30       4      20                                                          
+ Q10084685  FREEEEEEEEEE      02/04/2018     MUSC     2.10      55       8                                                          
+ Q76380214  DOMMMMMMMMMM      03/24/2018     CSCI     1.50      63       8                                                          
+ Q85319721  SweepTheLeg       13/09/2017     MUSC     1.30     109      14                                                          
+ Q07643040  TheBestAroun      09/05/2018     PHYS     2.80      68       4                                                          
+ Q75667368  DanceMagicDa      02/23/2018     MATH     0.30      35      17                                                          
+ Q68652725  DavidBowie        10/20/2018     MATH     0.30      12       4                                                          
+ Q32010910  TheBeatles        13/06/2018     CSCI     3.60      83       7                                                          
+ Q00031165  QueenSoGood       04/07/2018     PHYS     1.40      35       7                                                          
+ Q72270533  ZombieBrains      01/05/2018     PSYC     3.20      86      11                                                          
+ Q18426525  CARL!!!!!!!!      01/17/2017     PHYS     1.10      76      20                                                          
+ Q09649918  JonHammWow        05/23/2018     PSYC     0.00      94       4                                                          
+ Q67576384  HIMYMSoGood       05/12/2017     ANTH     3.90      82      17                                                          
+ Q38754882  HighFiveBro       06/28/2017     PSYC     2.50      90      20                                                          
+ Q24945034  STINSON_OUT       06/05/2018     PHYS     4.00      16      21                                                          
+ Q88503456  UncleBuck         11/09/2017     MATH     2.70     101       2                                                          
+ Q71109829  ThereIsNoSpo      09/22/2018     MUSC     0.10     107      16                                                          
+ Q81946874  FreeYourMind      11/28/2017     ANTH     1.20      79       1                                                          
+ Q64839629  StrongBad         06/12/2017     MUSC     1.70      59       6                                                          
+ Q03182052  RoyaleWChees      11/28/2017     PHYS     3.00       2      15                                                          
+ Q13261659  programmer        12/22/2018     MATH     2.00     118      16                                                          
+ Q00276539  icannotbrain      08/11/2017     MATH     1.20      46      14                                                          
+ Q67871318  ihavethedumb      06/22/2018     PHYS     2.30      20      11                                                          
+
+                          Student Information                      3                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q04679760  PeopleAssume      03/25/2017     PSYC     2.50     119      14                                                          
+ Q09384114  ThatTimeIsAS      10/21/2018     PHYS     0.60      83      15                                                          
+ Q38836803  trictProgres      13/12/2017     PHYS     2.20      66       9                                                          
+ Q54738499  sionOfCauseT      12/24/2018     CSCI     2.90     109       1                                                          
+ Q17815357  oEffectButAc      12/12/2017     PHYS     2.30      35      14                                                          
+ Q10423687  tuallyFromAN      09/26/2018     ANTH     3.10     102      17                                                          
+ Q45165887  onLinearNonS      13/25/2018     PHYS     2.10      49      15                                                          
+ Q46423851  ubjectiveVie      12/06/2018     MUSC     0.20      30      20                                                          
+ Q10809227  wpointItsMor      11/01/2018     ANTH     3.20      16      11                                                          
+ Q85791889  eLikeABigBal      12/05/2018     PSYC     0.80      61      11                                                          
+ Q42843017  lOfWibblyWob      12/09/2018     PHYS     1.00      30      12                                                          
+ Q77567002  bly...time-y      02/12/2017     PSYC     0.80      10       3                                                          
+ Q57940012  wime-y...         01/21/2018     PHYS     2.20     103       9                                                          
+ Q29891791  stuff             00/28/2017     PHYS     0.20      98      19                                                          
+ Q76609035  BowtiesAreCo      12/25/2018     PHYS     1.50      58      22                                                          
+ Q77636733  EXTERMINATE       00/20/2018     BIOL     2.90      56       9                                                          
+ Q14757792  ImBatman          00/28/2017     ANTH     0.90      89       7                                                          
+ Q86362255  xXLegolasXx       02/18/2018     PSYC     3.40      47      21                                                          
+ Q33769268  Tibbers           01/25/2017     PSYC     2.30      61      17                                                          
+ Q07927924  SHAZAM            12/11/2017     PHYS     4.00      17      12                                                          
+
+                          Student Information   by GPA             4                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q22539726  F4F4F4F4F4F4      02/03/2018     PSYC     4.00       5       1                                                          
+ Q24945034  STINSON_OUT       06/05/2018     PHYS     4.00      16      21                                                          
+ Q07927924  SHAZAM            12/11/2017     PHYS     4.00      17      12                                                          
+ Q67576384  HIMYMSoGood       05/12/2017     ANTH     3.90      82      17                                                          
+ Q60258274  letmein           06/12/2017     BIOL     3.80      39      14                                                          
+ Q71794442  acquirecurre      03/08/2017     PSYC     3.80      17       8                                                          
+ Q67994516  magnets?          12/28/2017     BIOL     3.70      36      22                                                          
+ Q63001752  2718281828        13/26/2018     CSCI     3.60      82      23                                                          
+ Q32010910  TheBeatles        13/06/2018     CSCI     3.60      83       7                                                          
+ Q35364980  0011223344        01/23/2018     PHYS     3.40      42      12                                                          
+ Q86362255  xXLegolasXx       02/18/2018     PSYC     3.40      47      21                                                          
+ Q20555902  Brodin            11/18/2018     PHYS     3.30      65      12                                                          
+ Q72270533  ZombieBrains      01/05/2018     PSYC     3.20      86      11                                                          
+ Q10809227  wpointItsMor      11/01/2018     ANTH     3.20      16      11                                                          
+ Q10423687  tuallyFromAN      09/26/2018     ANTH     3.10     102      17                                                          
+ Q13967108  answeris42        03/11/2018     PSYC     3.00      88       4                                                          
+ Q03182052  RoyaleWChees      11/28/2017     PHYS     3.00       2      15                                                          
+ Q01810721  zxcvbnm           07/24/2018     MATH     2.90      34       8                                                          
+ Q20279768  yellowchicke      14/02/2018     PHYS     2.90     118      18                                                          
+ Q54738499  sionOfCauseT      12/24/2018     CSCI     2.90     109       1                                                          
+ Q77636733  EXTERMINATE       00/20/2018     BIOL     2.90      56       9                                                          
+ Q07643040  TheBestAroun      09/05/2018     PHYS     2.80      68       4                                                          
+ Q61826057  314159265359      07/09/2018     MATH     2.70      16       2                                                          
+ Q25522904  F5F5F5F5F5F5      06/28/2017     ANTH     2.70      99      18                                                          
+ Q70645080  googlethis        13/12/2017     PHYS     2.70      33       4                                                          
+ Q88503456  UncleBuck         11/09/2017     MATH     2.70     101       2                                                          
+ Q49004688  iloveschool       06/28/2017     MUSC     2.60     114      24                                                          
+ Q38731131  asdfghjkl         12/02/2018     MUSC     2.50      80       9                                                          
+ Q63143187  darkside          07/03/2018     BIOL     2.50       9      16                                                          
+ Q48240272  blue'ngreen       08/26/2017     PSYC     2.50       7       2                                                          
+ Q38754882  HighFiveBro       06/28/2017     PSYC     2.50      90      20                                                          
+ Q04679760  PeopleAssume      03/25/2017     PSYC     2.50     119      14                                                          
+ Q62143228  shiny             12/08/2018     ANTH     2.40      91       4                                                          
+ Q72982045  8675309           10/07/2018     PHYS     2.30      85      23                                                          
+ Q78138644  nedstark          02/12/2017     MATH     2.30      88      14                                                          
+ Q67871318  ihavethedumb      06/22/2018     PHYS     2.30      20      11                                                          
+ Q17815357  oEffectButAc      12/12/2017     PHYS     2.30      35      14                                                          
+ Q33769268  Tibbers           01/25/2017     PSYC     2.30      61      17                                                          
+ Q38836803  trictProgres      13/12/2017     PHYS     2.20      66       9                                                          
+ Q57940012  wime-y...         01/21/2018     PHYS     2.20     103       9                                                          
+
+                          Student Information   by GPA             5                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q57509589  Computer          09/10/2017     MATH     2.10      60       9                                                          
+ Q39119331  doyouevenlif      08/22/2018     PSYC     2.10      72      21                                                          
+ Q10084685  FREEEEEEEEEE      02/04/2018     MUSC     2.10      55       8                                                          
+ Q45165887  onLinearNonS      13/25/2018     PHYS     2.10      49      15                                                          
+ Q41997419  racecar           05/22/2018     ANTH     2.00       4      15                                                          
+ Q13261659  programmer        12/22/2018     MATH     2.00     118      16                                                          
+ Q62822891  winteriscomi      00/27/2018     PHYS     1.90      55      18                                                          
+ Q08048288  1234567890        06/18/2018     PHYS     1.90      70       2                                                          
+ Q31773247  password123       12/25/2018     MATH     1.90     118      18                                                          
+ Q04988507  dudebrodude       04/17/2017     MUSC     1.90      74      16                                                          
+ Q43920781  0987654321        05/03/2017     CSCI     1.70      44       1                                                          
+ Q11109056  pizzahut          06/05/2018     ANTH     1.70     110      10                                                          
+ Q64839629  StrongBad         06/12/2017     MUSC     1.70      59       6                                                          
+ Q52385163  0101010           07/20/2018     PHYS     1.60      69      13                                                          
+ Q68537648  weakpass          04/24/2018     PHYS     1.60      92      14                                                          
+ Q18118698  taylorslow        00/20/2018     MATH     1.60      38       5                                                          
+ Q93366146  aliceinwonde      07/08/2017     ANTH     1.50      68       2                                                          
+ Q66267468  disregardfem      10/06/2018     MUSC     1.50      46       5                                                          
+ Q76380214  DOMMMMMMMMMM      03/24/2018     CSCI     1.50      63       8                                                          
+ Q76609035  BowtiesAreCo      12/25/2018     PHYS     1.50      58      22                                                          
+ Q00031165  QueenSoGood       04/07/2018     PHYS     1.40      35       7                                                          
+ Q28505501  qwerty            09/03/2018     PHYS     1.30      18       4                                                          
+ Q74770424  strongpass        14/10/2017     PHYS     1.30      66      23                                                          
+ Q71491640  burgerpage        02/03/2018     MUSC     1.30      78      14                                                          
+ Q85319721  SweepTheLeg       13/09/2017     MUSC     1.30     109      14                                                          
+ Q81946874  FreeYourMind      11/28/2017     ANTH     1.20      79       1                                                          
+ Q00276539  icannotbrain      08/11/2017     MATH     1.20      46      14                                                          
+ Q61276118  drowssap          11/28/2017     MUSC     1.10      66       6                                                          
+ Q43612144  CallOfDuty        10/08/2018     PHYS     1.10      24      15                                                          
+ Q18426525  CARL!!!!!!!!      01/17/2017     PHYS     1.10      76      20                                                          
+ Q88979192  subwayisgood      12/08/2018     PHYS     1.00      71       9                                                          
+ Q42843017  lOfWibblyWob      12/09/2018     PHYS     1.00      30      12                                                          
+ Q53501342  expectopatro      08/24/2018     PHYS     0.90     110      13                                                          
+ Q05275510  maketeal          10/17/2017     PSYC     0.90      70      14                                                          
+ Q14757792  ImBatman          00/28/2017     ANTH     0.90      89       7                                                          
+ Q98055507  mccydisbad        07/18/2018     PHYS     0.80      63      16                                                          
+ Q85791889  eLikeABigBal      12/05/2018     PSYC     0.80      61      11                                                          
+ Q77567002  bly...time-y      02/12/2017     PSYC     0.80      10       3                                                          
+ Q93448440  papajohns         01/02/2018     PHYS     0.70      65      13                                                          
+ Q44072762  Laptop            05/08/2018     ANTH     0.60      87      19                                                          
+
+                          Student Information   by GPA             6                                                                
+
+
+  Student                                                      Total                                                                
+   ID        Password         Renewal Date   Major     GPA     Hours                                                                
+ Q09384114  ThatTimeIsAS      10/21/2018     PHYS     0.60      83      15                                                          
+ Q79504142  redchicken        04/20/2018     PHYS     0.50      94      22                                                          
+ Q89324332  REDBULL           06/25/2018     CSCI     0.40       0       5                                                          
+ Q36515553  05772156649       11/28/2017     ANTH     0.30     107       5                                                          
+ Q34404557  !@#$%^&*()        13/04/2018     PHYS     0.30      30      23                                                          
+ Q58517153  funny             04/24/2018     PHYS     0.30      64      21                                                          
+ Q90926219  metarzan          02/07/2018     BIOL     0.30      40      12                                                          
+ Q09999853  youjane           07/07/2018     ANTH     0.30      91       6                                                          
+ Q12775071  /r/funny          13/10/2017     PSYC     0.30       4      20                                                          
+ Q75667368  DanceMagicDa      02/23/2018     MATH     0.30      35      17                                                          
+ Q68652725  DavidBowie        10/20/2018     MATH     0.30      12       4                                                          
+ Q71973135  5Fg1{x^3n(        09/27/2017     PHYS     0.20     106       5                                                          
+ Q94539607  WorldOfWarcr      08/10/2017     MUSC     0.20      98      23                                                          
+ Q74378433  indianajones      04/28/2017     PHYS     0.20      86      11                                                          
+ Q46423851  ubjectiveVie      12/06/2018     MUSC     0.20      30      20                                                          
+ Q29891791  stuff             00/28/2017     PHYS     0.20      98      19                                                          
+ Q35745822  password          07/27/2018     MUSC     0.10      22      17                                                          
+ Q46232138  qwertyuiop        03/04/2018     PHYS     0.10      91       3                                                          
+ Q71109829  ThereIsNoSpo      09/22/2018     MUSC     0.10     107      16                                                          
+ Q09649918  JonHammWow        05/23/2018     PSYC     0.00      94       4                                                          
+
+*** EXECUTION TIME =    0.028 SECS.     56299 INSTRUCTIONS EXECUTED -  2010678 INSTRUCTIONS/SEC ***                                 
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!

@@ -1,0 +1,154 @@
+Assignment 8
+
+100 points
+
+
+Overview
+
+This assignment deals with data about students and their GPAs. You will write a program that will read the file. The data will be processed and put in a table. You will then XDUMP part of the table. After that, you should print out the table contents in a report. Last: sort the table in descending order by GPA and then print it again.
+
+The data will be stored in a small number of bytes.
+
+Input
+
+The input to the program will be a file with an unknown number of records. Each record represents a single student and has the following format:
+
+     columns         description
+     -------         -----------
+      1 - 9          Student ID ('Q' followed by an 8 digits)
+     10              not used (space)
+     11 - 22         Password  (characters)
+     23              not used (space)
+     24 - 31         Password Renewal Date (8 digits:  Day, Month, Year)
+     32              not used (space)
+     33 - 36         Major Subject (4 characters such as 'CSCI')
+     37              not used (space)
+     38 - 40         Grade Point Average (3 digits such as '2.50', no decimal point)
+     41              not used (space)
+     42 - 44         Total Credit Hours (3 digits)
+     45              not used (space)
+     46 - 47         Hours Currently Enrolled (2 digits)
+     48 - 80         not used (spaces)
+Use the following JCL statement to specify the input file:
+
+//FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HW8DATA,DISP=SHR
+Processing Requirements
+
+The main program will carry out the following steps:
+
+1. Call subroutine BUILD to read the file and store the data in a table.
+
+2. Use XDUMP to print 162 bytes of the table in hex.
+
+3. Call subroutine PRINT to print the contents of the table using appropriate page and column headings.
+
+4. Call subroutine SORTGPA to sort the table in descending order. The key field is Grade Point Average.
+
+5. Call subroutine PRINT again.
+
+Structure of a table entry
+
+The structure of a table entry is as follows, in this order:
+
+Student ID (4 bytes)
+Password (12 bytes)
+Password Renewal Date (2 bytes)
+Major (4 bytes)
+Grade Point Average (2 bytes)
+Total Credit Hours (2 bytes)
+Hours Currently Enrolled (1 byte)
+Thus each table entry is 27 bytes long.
+BUILD subroutine
+
+The arguments for the BUILD subroutine are the address of the table and the address of a fullword where we will store the end-of-table address.
+
+We are going to store the digits of the ID number as a 4-byte binary values. In the table, these may or may not be on fullword boundaries. You may need PACK, CVB and STCM.
+
+We are going to store the Password using "XOR encryption" using the binary value of the ID as the key field.
+
+The "XOR encryption" technique works like this: suppose we have a 4-byte binary number KEY and we want to encrypt a 4-byte variable called PHRASE. Then:
+
+     (encrypted form of PHRASE) = PHRASE XOR KEY
+We will do this using the ID number (as a 4-byte binary value) as the key. Each Password is up to 12 bytes long, so we need to encrypt the first 4 bytes and then the next 4 bytes and then the last 4 bytes.
+
+We are going to store the Password Renewal Date in 2 bytes (16 bits) in a compressed format:
+
+We will store the year using the first 7 bits as an offset from the year 1980. For instance we will store 2014 as the value 34, expressed in 7 bits.
+We will store the number of the month (1-12) using the next 4 bits.
+We will store the number of the day (1-31) using the last 5 bits.
+To work with dates, you will presumably have to use PACK and CVB, followed by shift and bitwise instructions, and you may need to use STCM to put the value in the table.
+
+We will store the Major as 4 bytes, doing nothing special with it.
+
+We will store The Grade Point Average as a 2-byte packed decimal value. You may need PACK, CVB and STCM
+
+We will store the Total Credit Hours as a 2-byte binary value. You may need PACK, CVB and STCM,
+
+We will store the Hours Currently Enrolled as a 1-byte binary value. You may need PACK, CVB and STC.
+
+PRINT subroutine
+
+The arguments for the PRINT subroutine are the address of the table. the address of a fullword where we have stored the end-of-table address, and the address of a 36-byte caption to put in the page heading line (centered).
+
+When we extract the data from the table to print it, we will need to decrypt the Password. This can be done by exactly the same method. If we have PHRASE and KEY as above:
+
+     (decrypted form of PHRASE) = (encrypted form of PHRASE) XOR KEY
+When we need to recover the Password Renewal Date from its compressed form, we can do the following:
+
+use ICM to put the value in a register
+use SLL and SRL to get just one number (perhaps the month) in the rightmost bits with the rest of the register full of 0 bits
+use CVD to get hold of the number in packed decimal form
+use MVC and ED to get the number in zoned decimal form
+move just the digits we want onto the print line
+To extract the other data from the table, you may need to use IC, ICM, CVD, etc.
+
+SORTGPA subroutine
+
+The arguments for the SORTGPA subroutine are the address of the table and the address of a fullword where we have stored the end-of-table address.
+
+We will sort the table in descending order using the GPA field as the key for sorting.
+
+The SORTGPA subroutine should use the sorting method known as "Bubble Sort". Here is a description:
+
+                 Bubble Sort Algorithm
+
+          I is a pointer initially to the first entry
+          J is a pointer initially to the first entry
+          K is a pointer
+          STOP is a pointer to the last entry
+          Temp is a variable as large as a table entry
+
+          Do While (I < STOP)
+            J = I
+            Do While (J < STOP)
+              K = J
+              Increment J
+              If Key(J) > Key(K)
+                Temp = Entry(J)
+                Entry(J) = Entry(K)
+                Entry(K) = Temp
+              EndIf
+            EndDo
+            Increment I
+          EndDo
+There may be ways to make the above algorithm more efficient.
+
+Other Notes
+
+You may assume that the table needs to hold no more than 110 entries, 27 bytes each.
+You should use a DSECT to describe the table entries.
+Each of the subroutines needs a parameter list containing the address of the table and the address of a fullword containing the address of the first unused entry
+The JCL for this assignment is the same as the JCL used in the Assignment 6 except for the line given above to provide the data. It does not have a driver program.
+When you print a date, print it in the format 04/11/2018, is, DD/MM/YYYY.
+You may notice that some people have not renewed their passwords on time.
+Output
+
+Aside from the XDUMP, there will be several pages of output.
+
+The table listing should have a page heading, including a page number. There should be column headings, triple-spaced from the page heading.
+
+The captions in the page heading should be something like: "Student Information" and "Student Information by GPA".
+
+The lines of player information should be single-spaced.
+
+Print no more than 40 lines of player information per page.
