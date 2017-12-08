@@ -1,0 +1,236 @@
+**********************************************************************                                                  
+*                                                                    *                                                  
+*  Name:  DRIVER.                                                    *                                                  
+*                                                                    *                                                  
+*  Function:  Test platform for macros.                              *                                                  
+*                                                                    *                                                  
+*  Input:  None.                                                     *                                                  
+*                                                                    *                                                  
+*  Output:  Results of the tests.                                    *                                                  
+*                                                                    *                                                  
+*  Register Usage:                                                   *                                                  
+*        8       Used in calling macros                              *                                                  
+*        9       Used in calling macros                              *                                                  
+*       10       Used in calling macros                              *                                                  
+*       11       Used in calling internal subroutines                *                                                  
+*       12       Base register                                       *                                                  
+*       14       Return address                                      *                                                  
+*                                                                    *                                                  
+**********************************************************************                                                  
+         EJECT                                                                                                          
+**********************************************************************                                                  
+*               The DRIVER program begins here.                      *                                                  
+**********************************************************************                                                  
+*                                                                                                                       
+DRIVER   CSECT                         Beginning of the program.                                                        
+*                                                                                                                       
+         PRINT GEN                     Do expand macros.                                                                
+*                                                                                                                       
+*  Standard entry linkage.                                                                                              
+*                                                                                                                       
+         STM   14,12,12(13)            Store the registers in the save                                                  
+*                                      area of the calling routine.                                                     
+*                                                                                                                       
+         LR    12,15                   Point register 12 at DRIVER.                                                     
+         USING DRIVER,12               The base register is 12.                                                         
+*                                                                                                                       
+         LA    14,DRIVSAV              Point register 14 at DRIVER's                                                    
+*                                      save area.                                                                       
+         ST    13,4(14)                Store the backward pointer.                                                      
+         ST    14,8(13)                Store the forward pointer.                                                       
+         LR    13,14                   Point register 13 at DRIVER's                                                    
+*                                      save area.                                                                       
+*                                                                                                                       
+         XPRNT  =CL26'1Results of testing macros',26   Print the title.                                                 
+         XPRNT  =CL31'-First we test the STRCMP macro',31                                                               
+*                                      Print a heading.                                                                 
+*                                                                                                                       
+* The first block of code deals with the STRCMP macro.                                                                  
+*                                                                                                                       
+         LA    1,SLIST                                                                                                  
+*                                                                                                                       
+* These first three calls to STRCMP have problems which should                                                          
+* result in MNOTEs.                                                                                                     
+*                                                                                                                       
+         STRCMP S1                                                                                                      
+*                                                                                                                       
+         STRCMP ,S2                                                                                                     
+*                                                                                                                       
+         STRCMP                                                                                                                             
+*
+* The next group of calls should all work.                                                                              
+*                                                                                                                       
+         STRCMP S1,S1                  Compare "" and ""                                                                
+         MVC    SVALUE1(2),=CL2'00'                                                                                     
+         MVC    SVALUE2(2),=CL2'00'                                                                                     
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         STRCMP S1,S2                                                                                                   
+         MVC    SVALUE1(2),=CL2'00'    Compare "" and "BUMP"                                                            
+         MVC    SVALUE2(10),=CL10'C2E4D4D700'                                                                           
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         STRCMP S3,S2                  Compare "BUMPY" and "BUMP"                                                       
+         MVC    SVALUE1(12),=CL12'C2E4D4D7E800'                                                                         
+         MVC    SVALUE2(10),=CL10'C2E4D4D700'                                                                           
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         STRCMP S2,S4                  Compare "BUMP" and "BOMP"                                                        
+         MVC    SVALUE1(10),=CL10'C2E4D4D700'                                                                           
+         MVC    SVALUE2(10),=CL10'C2D6D4D700'                                                                           
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         STRCMP =XL5'C2D6D4C200',S4    Compare "BOMB" and "BOMP"                                                        
+         MVC    SVALUE1(10),=CL10'C2D6D4C200'                                                                           
+         MVC    SVALUE2(10),=CL10'C2D6D4D700'                                                                           
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         LA     8,S1                                                                                                    
+         STRCMP S2,0(8)                Compare "BUMP" and ""                                                            
+         MVC    SVALUE1(10),=CL10'C2E4D4D700'                                                                           
+         MVC    SVALUE2(2),=CL2'00'                                                                                     
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+         STRCMP S3,S3                  Compare "BUMPY" and "BUMPY"                                                      
+         MVC    SVALUE1(12),=CL12'C2E4D4D7E800'                                                                         
+         MVC    SVALUE2(12),=CL12'C2E4D4D7E800'                                                                         
+         BAL    11,SOUT                                                                                                 
+*                                                                                                                       
+* The second block of code deals with the MAX macro.                                                                    
+*                                                                                                                       
+         XPRNT =C'0',1                 Skip an extra 2 lines.                                                           
+         XPRNT =CL29'-Next we test the MAX macro.',29  
+*                                      Print a heading.                                                                 
+*                                                                                                                       
+* These first three calls to MAX have problems which should                                                             
+* result in MNOTEs.                                                                                                     
+*                                                                                                                       
+         MAX   BIG                                                                                                      
+*                                                                                                                       
+         MAX   BIG,()                                                                                                   
+*                                                                                                                       
+         MAX   ,(MABC,MDEF)                                                                                             
+*                                                                                                                       
+* The next group of calls should all work.                                                                              
+*                                                                                                                       
+         XPRNT =CL27'0The list contains only -3.',27
+         MAX   BIG,(MABC)                                                                                               
+         L     5,BIG                                                                                                    
+         CVD   5,MTEMP                                                                                                  \
+         MVC   MOUT(5),=X'4020212060'                                                                                   
+         ED    MOUT(5),MTEMP+6                                                                                          
+         XPRNT MLINE,22                                                                                                 
+*                                                                                                                       
+         XPRNT =CL30'0The list contains -10 and -3.',29
+         MAX   BIG,(MGHI,MABC)                                                                                          
+         L     5,BIG                                                                                                    
+         CVD   5,MTEMP                                                                                                  
+         MVC   MOUT(5),=X'4020212060'                                                                                   
+         ED    MOUT(5),MTEMP+6                                                                                          
+         XPRNT MLINE,22                                                                                                 
+*                                                                                                                       
+         XPRNT =CL37'0The list contains -3, 7, -10 and 15.',37
+         MAX   BIG,(MABC,MDEF,MGHI,MJKL)                                                                                
+         L     5,BIG                                                                                                    
+         CVD   5,MTEMP                                                                                                  
+         MVC   MOUT(5),=X'4020212060'                                                                                   
+         ED    MOUT(5),MTEMP+6                                                                                          
+         XPRNT MLINE,22                                                                                                 
+*                                                                                                                       
+         XPRNT =CL28'0The list contains 7 and 15.',28
+         LA    8,MDEF                                                                                                   
+         MAX   BIG,(0(8),MJKL)                                                                                          
+         L     5,BIG                                                                                                    
+         CVD   5,MTEMP                                                                                                  
+         MVC   MOUT(5),=X'4020212060'                                                                                   
+         ED    MOUT(5),MTEMP+6                                                                                          
+         XPRNT MLINE,22                                                                                                 
+*                                                                                                                       
+         XPRNT =CL34'0The list contains 44, -10 and 45.',34
+         MAX   BIG,(=F'44',MGHI,=F'45')                                                                                 
+         L     5,BIG                                                                                                    
+         CVD   5,MTEMP                                                                                                  
+         MVC   MOUT(5),=X'4020212060'                                                                                   
+         ED    MOUT(5),MTEMP+6                                                                                          
+         XPRNT MLINE,22                                                                                                 
+*                                                                                                                       
+*  Standard exit linkage.                                                                                               
+*                                                                                                                       
+         L     13,4(13)                Point register 13 at the calling                                                 
+*                                      program's save area.                                                             
+         LM    14,12,12(13)            Restore all registers.                                                           
+         BR    14                      Return to the calling program.                                                   
+*                                                                                                                       
+         EJECT                                                                                                          
+**********************************************************************                                                  
+*          The storage section for DRIVER starts here.               *                                                  
+**********************************************************************                                                  
+*                                                                                                                       
+         LTORG                                                                                                          
+DRIVSAV  DC    18F'-1'                 Save area for linkage.                                                           
+*                                                                                                                       
+SLIST    DC    A(SVALUE1,SVALUE2,SRESULT,SLINE)                                                                         
+*                                                                                                                       
+* Storage for testing STRCMP                                                                                            
+S1       DC    X'00'                                                                                                    
+S2       DC    XL5'C2E4D4D700'         "BUMP"                                                                           
+S3       DC    XL6'C2E4D4D7E800'       "BUMPY"                                                                          
+S4       DC    XL5'C2D6D4D700'         "BOMP"                                                                           
+*                                                                                                                       
+SLINE    DC    C'0'                                                                                                     
+         DC    CL8'Compare '                                                                                            
+SVALUE1  DC    12C' '                                                                                                   
+         DC    CL4' to '                                                                                                
+SVALUE2  DC    12C' '                                                                                                   
+         DC    CL19' and the result is '                                                                                
+SRESULT  DC    12C' '                                                                                                   
+*                                                                                                                       
+* Storage for testing MAX                                                                                               
+MABC     DC    F'-3'                                                                                                    
+MDEF     DC    F'7'                                                                                                     
+MGHI     DC    F'-10'                                                                                                   
+MJKL     DC    F'15'                                                                                                    
+BIG      DS    F                                                                                                        
+*                                                                                                                       
+MTEMP    DS    D                                                                                                        
+*                                                                                                                       
+MLINE    DC    C' '                                                                                                     
+         DC    CL16'Largest value = '                                                                                   
+MOUT     DS    CL5                                                                                                      
+         EJECT                                                                                                          
+**********************************************************************                                                  
+*                                                                                                                       
+* SOUT is an internal subroutine to help print the results of STRCMP.                                                   
+*                                                                                                                       
+* Register 1 : address of the parameter list                                                                            
+*          2 : address of SVALUE1, from 0(1)                                                                            
+*          3 : address of SVALUE2, from 4(1)                                                                            
+*          4 : address of SRESULT, from 8(1)                                                                            
+*          5 : address of SLINE, from 12(1)                                                                             
+*         11 : return address                                                                                           
+*                                                                                                                       
+**********************************************************************                                                  
+SOUT     DS    0H                                                                                                       
+         STM   2,5,SSAVE               Save registers                                                                   
+         LM    2,5,0(1)                Unload parameter list                                                            
+         BC    B'0010',GTHAN                                                                                            
+         BC    B'0100',LTHAN                                                                                            
+EQUAL    MVC   0(12,4),=CL12'EQUAL      '                                                                               
+         B     SPRINT                                                                                                   
+GTHAN    MVC   0(12,4),=CL12'GREATER THAN'                                                                              
+         B     SPRINT                                                                                                   
+LTHAN    MVC   0(12,4),=CL12'LESS THAN   '                                                                              
+SPRINT   XPRNT 0(5),68                 Print the results                                                                
+         MVC   0(12,2),=12C' '         Reset the line                                                                   
+         MVC   0(12,3),=12C' '                                                                                          
+         MVC   0(12,4),=12C' '                                                                                          
+         LM    2,5,SSAVE               Restore registers                                                                
+         BR    11                      Return to caller                                                                 
+SSAVE    DS    4F                                                                                                       
+         EJECT                                                                                                          
+*                                                                                                                       
+**********************************************************************                                                  
+*                 The DRIVER program ends here.                      *                                                  
+**********************************************************************                                                  
+*                                                                                                                       
+         END   DRIVER                  End of the overall program.

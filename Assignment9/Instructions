@@ -1,0 +1,78 @@
+Assignment 9
+
+50 points
+
+
+Overview
+
+In this assignment, you will write two macros. These will be tested with a driver program.
+
+You may find it useful to examine the material on macros in the textbook, Chapter 9.
+
+The driver program uses the command "PRINT GEN" to dictate that all the code produced by each macro call should be printed. If we used "PRINT NOGEN" instead, most of it would be suppressed.
+
+Macros
+
+The first macro is called STRCMP. Its purpose is to compare two C-style strings.
+
+A C-style string is the type of character string used in the C language. It is stored as a sequence of consecutive bytes and ends with a byte containing X'00'.
+
+STRCMP has two symbolic parameters:
+
+&FIRST is the address of a C-style string of some length.
+&SECOND is the address of another C-style string of some length.
+Each of these addresses may be a label or a D(B) expression.
+
+The STRCMP macro should verify that each of its mandatory symbolic parameters is present. If a parameter is missing, the macro should print an informative error message using MNOTE and then MEXIT.
+
+The STRCMP macro should not change the value of any of its parameters.
+
+The simplest way to implement STRCMP is to compare one byte of each input string at a time in a loop until a difference is found or we reach the end of one of the strings. If the two strings are not the same length and they have the same values until we reach the end of the shorter one, then the shorter string is the smaller one.
+
+Examples:
+
+Compare 'HARP'  to 'HARP'.  Condition code should be 0.
+Compare 'HARPO' to 'HARPY'. Condition code should be 1.
+Compare 'HARP'  to 'HARM'.  Condition code should be 2.
+Compare 'HARP'  to 'HARPY'. Condition code should be 1.
+Compare 'HARP'  to '' (an empty string). Condition code should be 2.
+Compare '' (an empty string)  to '' 'HARP'. Condition code should be 1.
+The STRCMP macro will set the value of the condition code:
+
+Condition Code = 0 if the two strings are equal.
+Condition Code = 1 if &FIRST < &SECOND.
+Condition Code = 2 if &FIRST > &SECOND.
+The second macro is called MAX. Its purpose is to find the largest value in a list of fullwords.
+
+MAX has two symbolic parameters, both positional:
+
+&RESULT is the label or D(B) address of a fullword.
+&LIST is a sublist in which each items is the label or D(B) address of a fullword.
+The MAX macro should verify that each of its mandatory symbolic parameters is present. If a parameter is missing, the macro should print an informative error message using MNOTE and then MEXIT.
+
+The MAX macro should also verify that &LIST is not an empty list.
+
+Job Control Language
+
+Use the following Job Control Language (JCL) to execute Assignment 9 You need to fill in the jobname and your own name as usual. This JCL combines your macros with the driver program.
+
+The driver program is a complete program. It begins with CSECT and ends with END. Do not supply anything other than your two macros.
+
+//jobname JOB ,'your name',MSGCLASS=H
+//STEP1   EXEC  PGM=ASSIST,PARM='MACRO=H'
+//STEPLIB   DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR
+//SYSPRINT  DD  SYSOUT=*
+//SYSIN     DD  * 
+  Your Macros go here.  Each Macro must begin with 
+  MACRO and a Prototype statement.  Your model
+  statements follow and the Macro ends with MEND.  `
+  (You should remove these four lines.)
+//          DD DSN=KC02314.AUTUMN17.CSCI360.HW9DRVR,DISP=SHR
+//FT05F001  DD DUMMY
+//FT06F001  DD SYSOUT=*
+//
+Other Notes
+
+You may assume that if the driver calls your macro with a D(B) address, the register B involved is at least 8.
+None of these macros should change the values of any registers. When you need to use a register, save its previous value and restore it before ending.
+Document your macros completely. List the name, the purpose, the expected arguments and any possible error conditions and what will be the result.

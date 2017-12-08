@@ -1,0 +1,108 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+23.47.28 JOB07161 ---- TUESDAY,   05 DEC 2017 ----
+23.47.28 JOB07161  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+23.47.28 JOB07161  ICH70001I KC03I2C  LAST ACCESS AT 23:47:26 ON TUESDAY, DECEMBER 5, 2017
+23.47.28 JOB07161  $HASP373 KC03I2CA STARTED - INIT 2    - CLASS A        - SYS S0W1
+23.47.28 JOB07161  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+23.47.28 JOB07161  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+23.47.28 JOB07161  -KC03I2CA                      00     36 ******    .00     .0     80   0      0      0      0     0
+23.47.28 JOB07161  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+23.47.28 JOB07161  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  05 DEC 2017 JOB EXECUTION DATE
+
+
+           26 CARDS READ
+
+
+           76 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+            5 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB07161
+       2 //STEP1 EXEC PGM=ASSIST                                                         
+       3 //STEPLIB DD DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                                
+       4 //SYSPRINT DD SYSOUT=*                                                          
+       5 //SYSIN DD *                                                                    
+       6 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 23:47:26 ON TUESDAY, DECEMBER 5, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB07161.D0000102.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB07161.D0000101.?         SYSIN         
+IEF373I STEP/STEP1   /START 2017339.2347
+IEF032I STEP/STEP1   /STOP  2017339.2347 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11508K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017339.2347
+IEF033I  JOB/KC03I2CA/STOP  2017339.2347 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ********************************************                                                
+                                      2 * EXAMPLE PROGRAM                                                                           
+                                      3 *                                                                                           
+                                      4 * NAME:  Alex Boyle                                                                         
+                                      5 *                                                                                           
+                                      6 * Register Usage                                                                            
+                                      7 *                                                                                           
+                                      8 *  2     Total                                                                              
+                                      9 *  5     Counter                                                                            
+                                     10 * 15     Base register                                                                      
+                                     11 *                                                                                           
+                                     12 ********************************************                                                
+000000                               13 MAIN     CSECT                                                                              
+000000                               14          USING MAIN,15                                                                      
+000000 1B22                          15          SR    2,2     ZERO FOR TOTAL                                                       
+000002 1B55                          16          SR    5,5     ZERO FOR COUNTER                                                     
+000004 E160 0000 0000 00000          17          XDUMP                                                                              
+00000A 07FE                          18          BR    14                                                                           
+                                     19          END   MAIN                                                                         
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:     268 HIGH:     320 LEAVING:  492980 FREE BYTES. AVERAGE:       29 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,    20000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+BEGIN XSNAP - CALL     1 AT C000000A USER REGISTERS                                                                                 
+
+ REGS 0-7      F4F4F4F4    F4F4F4F4    00000000    F4F4F4F4    F4F4F4F4    00000000    F4F4F4F4    F4F4F4F4                         
+ REGS 8-15     F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    00000010    FFFE7960    00000000                         
+
+                                                                                                                                    
+
+*** EXECUTION TIME =    0.000 SECS.         4 INSTRUCTIONS EXECUTED -     4000 INSTRUCTIONS/SEC ***                                 
+
+*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                                
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!

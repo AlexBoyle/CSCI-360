@@ -1,0 +1,246 @@
+                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+ 
+21.32.02 JOB03050 ---- THURSDAY,  07 DEC 2017 ----
+21.32.02 JOB03050  IRR010I  USERID KC03I2C  IS ASSIGNED TO THIS JOB.
+21.32.02 JOB03050  ICH70001I KC03I2C  LAST ACCESS AT 21:32:02 ON THURSDAY, DECEMBER 7, 2017
+21.32.02 JOB03050  $HASP373 KC03I2CA STARTED - INIT 2    - CLASS A        - SYS S0W1
+21.32.02 JOB03050  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+21.32.02 JOB03050  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+21.32.02 JOB03050  -KC03I2CA                      00     68 ******    .00     .0    194   0      0      0      0     0
+21.32.02 JOB03050  -KC03I2CA ENDED.  NAME-Alex Boyle           TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+21.32.02 JOB03050  $HASP395 KC03I2CA ENDED
+
+------ JES2 JOB STATISTICS ------
+
+
+  07 DEC 2017 JOB EXECUTION DATE
+
+
+          115 CARDS READ
+
+
+          192 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+           13 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03I2CA JOB ,'Alex Boyle',MSGCLASS=H                                 JOB03050
+       2 //STEP1    EXEC  PGM=ASSIST                                                     
+       3 //STEPLIB    DD  DSN=KC02293.ASSIST.LOADLIB,DISP=SHR                            
+       4 //SYSPRINT   DD  SYSOUT=*                                                       
+       5 //SYSIN      DD  *                                                              
+       6 //FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HWEXDATA,DISP=SHR                  
+       7 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03I2C  LAST ACCESS AT 21:32:02 ON THURSDAY, DECEMBER 7, 2017
+IEF236I ALLOC. FOR KC03I2CA STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME FT05F001
+IEF142I KC03I2CA STEP1 - STEP WAS EXECUTED - COND CODE 0000
+IGD104I KC02293.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03I2C.KC03I2CA.JOB03050.D0000102.?         SYSOUT        
+IEF285I   KC03I2C.KC03I2CA.JOB03050.D0000101.?         SYSIN         
+IGD104I KC02314.AUTUMN17.CSCI360.HWEXDATA            RETAINED,  DDNAME=FT05F001
+IEF373I STEP/STEP1   /START 2017341.2132
+IEF032I STEP/STEP1   /STOP  2017341.2132 
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    11540K
+        ATB- REAL:                     0K  SLOTS:                     0K
+             VIRT- ALLOC:       0M SHRD:       0M
+IEF375I  JOB/KC03I2CA/START 2017341.2132
+IEF033I  JOB/KC03I2CA/STOP  2017341.2132 
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 ************************************************************                                
+                                      2 *                                                                                           
+                                      3 *  Program:     ASSIGN7                                                                     
+                                      4 *  Programmer:  Alex Boyle                                                                  
+                                      5 ************************************************************                                
+000000                                6 LINE    DSECT     Format for Table                                                          
+000000                                7 N1      DS     CL6                                                                          
+000006                                8         DS     CL2                                                                          
+000008                                9 N2      DS     CL6                                                                          
+                                     10 ***********************************                                                         
+                                     11 *Name: Main                                                                                 
+                                     12 *                                                                                           
+                                     13 * This drives the program by branching to the needed locations                              
+                                     14 *                                                                                           
+                                     15 *  Register usage:                                                                          
+                                     16 *  15   MAIN                                                                                
+                                     17 *  14   Exit                                                                                
+                                     18 *  13   Save location                                                                       
+                                     19 *  12   location of line buffer                                                             
+                                     20 *  1-2                                                                                      
+                                     21 ***********************************                                                         
+000000                               22 MAIN     CSECT                                                                              
+000000                               23          USING MAIN,15                                                                      
+000000 50E0 F164            00164    24          ST    14,EXIT      Save Exit Location                                              
+000004 41D0 F11C            0011C    25          LA    13,SAVEM     Set the save area                                               
+                                     26 *                                                                                           
+000000                               27          USING LINE,12 set dsect LINE to R12                                                
+000008 E020 F209 002D 00209          28          XPRNT HEAD,45 Print the haedder                                                    
+00000E                               29 LOOP     DS    0H                                                                           
+00000E E000 F168 0050 00168          30          XREAD BUFF,80 Read Buffer                                                          
+000014 4740 F106            00106    31          BL    ELOOP End loop if nothing to read                                            
+000018 D205 F1E3 F110 001E3 00110    32          MVC   PA(6),=X'402020202120'                                                       
+00001E D205 F1F3 F110 001F3 00110    33          MVC   PB(6),=X'402020202120'                                                       
+000024 D205 F203 F110 00203 00110    34          MVC   PR(6),=X'402020202120'                                                       
+00002A 41C0 F168            00168    35          LA    12,BUFF set R12 to location of buff                                          
+00002E F255 F1B8 C000 001B8 00000    36          PACK  A(6),N1(6) Pack A                                                            
+000034 F255 F1BE C008 001BE 00008    37          PACK  B(6),N2(6) Pack B                                                            
+00003A 4110 F1E8            001E8    38          LA    1,PA+5 Set sign location                                                     
+00003E DF05 F1E3 F1BB 001E3 001BB    39          EDMK  PA(6),A+3 Format A for print line                                            
+000044 F950 F1B8 F116 001B8 00116    40          CP    A(6),=PL1'0' is negitive                                                     
+00004A 47B0 F054            00054    41          BNL   SKIP1                                                                        
+00004E 0610                          42          BCTR  1,0 dec R1                                                                   
+000050 9260 1000      00000          43          MVI   0(1),C'-' place negitive sign                                                
+000054                               44 SKIP1    DS    0H                                                                           
+000054 4110 F1F8            001F8    45          LA    1,PB+5  Set sign location                                                    
+000058 DF05 F1F3 F1C1 001F3 001C1    46          EDMK  PB(6),B+3 format B                                                           
+00005E F950 F1BE F116 001BE 00116    47          CP    B(6),=PL1'0' is negitive                                                     
+000064 47B0 F06E            0006E    48          BNL   SKIP2                                                                        
+000068 0610                          49          BCTR  1,0 dec R1                                                                   
+00006A 9260 1000      00000          50          MVI   0(1),C'-' place sign                                                         
+00006E                               51 SKIP2    DS    0H                                                                           
+00006E F855 F1C4 F1B8 001C4 001B8    52          ZAP   C(6),A(6) set C to A                                                         
+
+                                                                                                               PAGE    2            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+000074 FD52 F1C4 F1C1 001C4 001C1    53          DP    C(6),B+3(3) divide C by B                                                    
+00007A F862 F1CA F1C7 001CA 001C7    54          ZAP   D(7),C+3(3) Save remainder in D                                              
+000080 F852 F1C4 F1C4 001C4 001C4    55          ZAP   C(6),C(3) Format C                                                           
+000086 F875 F1D8 F1C4 001D8 001C4    56          ZAP   R(8),C(6) Set R to C                                                         
+00008C FC75 F1D8 F1BE 001D8 001BE    57          MP    R(8),B(6) Multiply R by B                                                    
+000092 F865 F1D1 F1BE 001D1 001BE    58          ZAP   E(7),B(6) Set E to B                                                         
+000098 F960 F1D1 F116 001D1 00116    59          CP    E(7),=PL1'0' check if negitive                                               
+00009E 47B0 F0A8            000A8    60          BNL    SKIP                                                                        
+0000A2 FC60 F1D1 F117 001D1 00117    61          MP    E(7),=PL1'-1' set to positive                                                
+0000A8                               62 SKIP     DS    0H                                                                           
+0000A8 FC60 F1CA F118 001CA 00118    63          MP    D(7),=PL1'2' multiply D by 2                                                 
+0000AE F960 F1CA F116 001CA 00116    64          CP    D(7),=PL1'0' check if D is negitive                                          
+0000B4 47B0 F0BE            000BE    65          BNL   SKIP4                                                                        
+0000B8 FC60 F1CA F117 001CA 00117    66          MP    D(7),=PL1'-1' set to positive                                                
+0000BE                               67 SKIP4    DS    0H                                                                           
+0000BE F966 F1CA F1D1 001CA 001D1    68          CP    D(7),E(7) check if D >= E                                                    
+0000C4 4740 F0E2            000E2    69          BL    PRNT if D >=E                                                                
+0000C8 F950 F1B8 F116 001B8 00116    70          CP    A(6),=PL1'0' Is A positive                                                   
+0000CE 47D0 F0DC            000DC    71          BNH   ELSE                                                                         
+0000D2 FA76 F1D8 F1D1 001D8 001D1    72          AP    R(8),E(7) Add E to R                                                         
+0000D8 47F0 F0E2            000E2    73          B     PRNT                                                                         
+0000DC                               74 ELSE     DS    0H                                                                           
+0000DC FB76 F1D8 F1D1 001D8 001D1    75          SP    R(8),E(7) Subtract E from R                                                  
+0000E2                               76 PRNT     DS    0H                                                                           
+0000E2 4110 F208            00208    77          LA    1,PR+5 set location of sign                                                  
+0000E6 DF05 F203 F1DD 00203 001DD    78          EDMK  PR(6),R+5 format R                                                           
+0000EC F970 F1D8 F116 001D8 00116    79          CP    R(8),=PL1'0'  is R negitive                                                  
+0000F2 47B0 F0FC            000FC    80          BNL   SKIP3                                                                        
+0000F6 0610                          81          BCTR  1,0 dec R1                                                                   
+0000F8 9260 1000      00000          82          MVI   0(1),C'-' set sign                                                           
+0000FC                               83 SKIP3    DS    0H                                                                           
+0000FC E020 F1E0 0029 001E0          84          XPRNT PLINE,41 Print line                                                          
+000102 47F0 F00E            0000E    85          B     LOOP                                                                         
+000106                               86 ELOOP    DS    0H                                                                           
+                                     87 *                                                                                           
+000106 58E0 F164            00164    88          L     14,EXIT      Load exit location                                              
+00010A 07FE                          89          BR    14           End program                                                     
+                                     90          LTORG              Literals are put here                                           
+000110 402020202120                  91                =X'402020202120'                                                             
+000116 0C                            92                =PL1'0'                                                                      
+000117 1D                            93                =PL1'-1'                                                                     
+000118 2C                            94                =PL1'2'                                                                      
+00011C                               95 SAVEM    DS    18F'0'                                                                       
+000164                               96 EXIT     DS    F                                                                            
+000168                               97 BUFF     DS    80C                                                                          
+0001B8                               98 A        DS    PL6                                                                          
+0001BE                               99 B        DS    PL6                                                                          
+0001C4                              100 C        DS    PL6                                                                          
+0001CA                              101 D        DS    PL7                                                                          
+0001D1                              102 E        DS    PL7                                                                          
+0001D8                              103 R        DS    PL8                                                                          
+0001E0 F04040                       104 PLINE    DC    CL3'0  '                                                                     
+0001E3                              105 PA       DS    6C                                                                           
+0001E9 4040404040404040             106          DC    CL10'          '                                                             
+0001F3                              107 PB       DS    6C                                                                           
+0001F9 4040404040404040             108          DC    CL10'          '                                                             
+000203                              109 PR       DS    6C                                                                           
+
+                                                                                                               PAGE    3            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+000209 F1C68999A2A340D5             110 HEAD     DC    CL45'1First Number   Second Number   Rounded Value'                          
+                                    111          END   MAIN                                                                         
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:    4524 HIGH:     892 LEAVING:  488152 FREE BYTES. AVERAGE:       48 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,   112000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+First Number   Second Number   Rounded Value                                                                                        
+
+       0             100               0                                                                                            
+
+       0            -100               0                                                                                            
+
+       3               4               4                                                                                            
+
+      -3              -4              -4                                                                                            
+
+      -3               4              -4                                                                                            
+
+       3              -4               4                                                                                            
+
+      17               5              15                                                                                            
+
+     -22               5             -20                                                                                            
+
+     -25              15             -30                                                                                            
+
+      25             -15              30                                                                                            
+
+      39              11              44                                                                                            
+
+      42               1              42                                                                                            
+
+       1               1               1                                                                                            
+
+      -1               1              -1                                                                                            
+
+       1              -1               1                                                                                            
+
+      42              -1              42                                                                                            
+
+      68             -10              70                                                                                            
+
+     -68              10             -70                                                                                            
+
+     -68             -11             -66                                                                                            
+
+    2001             670            2010                                                                                            
+
+    4003              17            3995                                                                                            
+
+*** EXECUTION TIME =    0.002 SECS.       857 INSTRUCTIONS EXECUTED -   428500 INSTRUCTIONS/SEC ***                                 
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!

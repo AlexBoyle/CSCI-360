@@ -1,0 +1,54 @@
+Extra Credit Assignment
+
+40 points
+
+
+Overview
+
+In this assignment, we are turning an algorithm into assembly language.
+
+It is in two parts, each worth 20 points. You may do one part or the other or both. These are two separate programs, not one, so you may end up with two source code files and two output files.
+
+The algorithm's purpose is to round an integer to the nearest multiple of another integer. You can find a copy of the algorithm here.
+
+Each line in the input file contains two integers in zoned decimal format:
+
+     Columns       Data
+       1-6              First Number
+       7-8              not used (blanks)
+       9-14             Second number
+      15-80             not used (blanks)
+You can use this line in the JCL to access the input file:
+
+     //FT05F001  DD  DSN=KC02314.AUTUMN17.CSCI360.HWEXDATA,DISP=SHR
+Part A
+
+Print column headings.
+
+Read each line in the line. For each line, compute the value of the first number as the nearest multiple of the second number using binary arithmetic and print a line containing all three values.
+
+Part B
+
+Print column headings.
+
+Read each line in the line. For each line, compute the value of the first number as the nearest multiple of the second number using packed decimal arithmetic and print a line containing all three values.
+
+Other requirements
+
+The output from each part should all fit on one page. You do not need a page heading.
+
+Your program needs to be properly documented as usual.
+
+Your main program should have standard entry and exit linkage.
+
+Do not use XDECI or XDECO. You will need packed decimal instructions for reading and writing numbers in both versions.
+
+Double-space between lines of output. Print the numbers neatly, suppressing leading zeroes.
+
+Don't do any extra work. We do not need to store the numbers in a table.
+
+You should think about the structure of the program. You are not required to use register equates, a DSECT, internal subroutines or external subroutines, but you may if you choose. If you do use DSECTs or subroutines, you do need to document them.
+
+Urgent Note!
+
+As this is the very last assignment for the semester, it absolutely must be turned in on time. It cannot be accepted late.
