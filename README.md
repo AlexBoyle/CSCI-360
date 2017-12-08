@@ -1,3 +1,5 @@
-# CSCI-360 IBM Mainframe ASM
+# NIU CSCI-360 IBM Mainframe ASM
 ## Overview
-This is a collection of programs I wrote for my CSCI 360 class at NIU. This Repository is ment to serve as a reference for myself.
+A collection of assignments that I turned in for CSCI-360 with Hutchins
+## Note
+Some of these assignemnts have mistakes in them, but all compile and give correct outputs
